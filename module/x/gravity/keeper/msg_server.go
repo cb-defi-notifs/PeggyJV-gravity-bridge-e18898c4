@@ -12,7 +12,7 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
 
-	"github.com/peggyjv/gravity-bridge/module/v3/x/gravity/types"
+	"github.com/peggyjv/gravity-bridge/module/v4/x/gravity/types"
 )
 
 type msgServer struct {
@@ -117,13 +117,16 @@ func (k msgServer) SubmitEthereumTxConfirmation(c context.Context, msg *types.Ms
 		return nil, err
 	}
 
-	otx := k.GetOutgoingTx(ctx, confirmation.GetStoreIndex())
-	if otx == nil {
-		k.Logger(ctx).Error(
-			"no outgoing tx",
-			"store index", fmt.Sprintf("%x", confirmation.GetStoreIndex()),
-		)
-		return nil, sdkerrors.Wrap(types.ErrInvalid, "couldn't find outgoing tx")
+	var otx types.OutgoingTx
+	if otx = k.GetOutgoingTx(ctx, confirmation.GetStoreIndex()); otx == nil {
+		if otx = k.GetCompletedOutgoingTx(ctx, confirmation.GetStoreIndex()); otx == nil {
+			k.Logger(ctx).Error(
+				"no outgoing tx",
+				"store index", fmt.Sprintf("%x", confirmation.GetStoreIndex()),
+			)
+
+			return nil, sdkerrors.Wrap(types.ErrInvalid, "couldn't find outgoing tx")
+		}
 	}
 
 	gravityID := k.getGravityID(ctx)
@@ -237,35 +240,6 @@ func (k msgServer) SendToEthereum(c context.Context, msg *types.MsgSendToEthereu
 	})
 
 	return &types.MsgSendToEthereumResponse{Id: txID}, nil
-}
-
-// RequestBatchTx handles MsgRequestBatchTx
-func (k msgServer) RequestBatchTx(c context.Context, msg *types.MsgRequestBatchTx) (*types.MsgRequestBatchTxResponse, error) {
-	// TODO: limit this to only orchestrators and validators?
-	ctx := sdk.UnwrapSDKContext(c)
-
-	// Check if the denom is a gravity coin, if not, check if there is a deployed ERC20 representing it.
-	// If not, error out. Normalizes the format of the input denom if it's a gravity denom.
-	_, tokenContract, err := k.DenomToERC20Lookup(ctx, types.NormalizeDenom(msg.Denom))
-	if err != nil {
-		return nil, err
-	}
-
-	batchID := k.BuildBatchTx(ctx, tokenContract, BatchTxSize)
-	if batchID == nil {
-		return nil, fmt.Errorf("no suitable batch to create")
-	}
-
-	ctx.EventManager().EmitEvent(
-		sdk.NewEvent(
-			sdk.EventTypeMessage,
-			sdk.NewAttribute(sdk.AttributeKeyModule, msg.Type()),
-			sdk.NewAttribute(types.AttributeKeyContract, tokenContract.Hex()),
-			sdk.NewAttribute(types.AttributeKeyBatchNonce, fmt.Sprint(batchID.BatchNonce)),
-		),
-	)
-
-	return &types.MsgRequestBatchTxResponse{}, nil
 }
 
 func (k msgServer) CancelSendToEthereum(c context.Context, msg *types.MsgCancelSendToEthereum) (*types.MsgCancelSendToEthereumResponse, error) {

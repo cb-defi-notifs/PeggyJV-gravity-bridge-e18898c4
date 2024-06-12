@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
+	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types/v1beta1"
 	"github.com/ethereum/go-ethereum/common"
 )
 
@@ -19,10 +19,10 @@ var _ govtypes.Content = &CommunityPoolEthereumSpendProposal{}
 
 func init() {
 	govtypes.RegisterProposalType(ProposalTypeCommunityPoolEthereumSpend)
-	govtypes.RegisterProposalTypeCodec(&CommunityPoolEthereumSpendProposal{}, "gravity/CommunityPoolEthereumSpendProposal")
 }
 
 // NewCommunityPoolEthereumSpendProposal creates a new community pool spend proposal.
+//
 //nolint:interfacer
 func NewCommunityPoolEthereumSpendProposal(title, description string, recipient string, amount sdk.Coin, bridgeFee sdk.Coin) *CommunityPoolEthereumSpendProposal {
 	return &CommunityPoolEthereumSpendProposal{title, description, recipient, amount, bridgeFee}

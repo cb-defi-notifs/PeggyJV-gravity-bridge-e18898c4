@@ -16,6 +16,9 @@ env:
 
 jobs:
   rust-build:
+    permissions:
+      contents: read
+      packages: write
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout branch
@@ -50,6 +53,7 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           file: orchestrator/Dockerfile
           push: true
+          platforms: linux/amd64, linux/arm64/v8
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=local,src=/tmp/.buildx-cache
@@ -65,10 +69,10 @@ jobs:
       packages: write
     runs-on: ubuntu-20.04
     steps:
-      - name: Set up Go 1.18
+      - name: Set up Go 1.22
         uses: actions/setup-go@v2
         with:
-          go-version: 1.18
+          go-version: 1.22
       - name: checkout
         uses: actions/checkout@v2
       - name: Set up Docker Buildx
@@ -103,6 +107,7 @@ jobs:
           context: ./module
           file: module/Dockerfile
           push: true
+          platforms: linux/amd64, linux/arm64/v8
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           builder: ${{ steps.buildx.outputs.name }}
@@ -203,6 +208,7 @@ jobs:
           context: integration_tests/ethereum
           file: integration_tests/ethereum/Dockerfile
           push: true
+          platforms: linux/amd64, linux/arm64/v8
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           builder: ${{ steps.buildx.outputs.name }}
@@ -228,10 +234,10 @@ jobs:
         ]
 
     steps:
-      - name: Set up Go 1.18
+      - name: Set up Go 1.22
         uses: actions/setup-go@v2
         with:
-          go-version: 1.18
+          go-version: 1.22
       - name: checkout
         uses: actions/checkout@v2
       - name: go-cache
@@ -281,7 +287,7 @@ jobs:
       - name: build go test binary
         run: cd integration_tests && go test -c
       - name: Run all up ci test
-        run: ./integration_tests/integration_tests.test -test.failfast -test.v -test.run IntegrationTestSuite -testify.m Test${{ matrix.test_type }}
+        run: ./integration_tests/integration-tests.test -test.failfast -test.v -test.run IntegrationTestSuite -testify.m Test${{ matrix.test_type }}
         env:
           E2E_SKIP_CLEANUP: true
           ARCHIVE_NODE_URL: https://eth-mainnet.alchemyapi.io/v2/${{ secrets.ALCHEMY_ID }}

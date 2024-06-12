@@ -8,7 +8,7 @@ import (
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	"github.com/ethereum/go-ethereum/common"
 
-	"github.com/peggyjv/gravity-bridge/module/v3/x/gravity/types"
+	"github.com/peggyjv/gravity-bridge/module/v4/x/gravity/types"
 )
 
 func (k Keeper) DetectMaliciousSupply(ctx sdk.Context, denom string, amount sdk.Int) (err error) {
@@ -74,13 +74,7 @@ func (k Keeper) Handle(ctx sdk.Context, eve types.EthereumEvent) (err error) {
 		return nil
 
 	case *types.SignerSetTxExecutedEvent:
-		// TODO here we should check the contents of the validator set against
-		// the store, if they differ we should take some action to indicate to the
-		// user that bridge highjacking has occurred
-		k.setLastObservedSignerSetTx(ctx, types.SignerSetTx{
-			Nonce:   event.SignerSetTxNonce,
-			Signers: event.Members,
-		})
+		k.SignerSetExecuted(ctx, event.GetEventNonce())
 		k.AfterSignerSetExecutedEvent(ctx, *event)
 		return nil
 

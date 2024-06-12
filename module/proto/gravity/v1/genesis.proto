@@ -6,7 +6,8 @@ import "gravity/v1/gravity.proto";
 import "gravity/v1/msgs.proto";
 import "google/protobuf/any.proto";
 
-option go_package = "github.com/peggyjv/gravity-bridge/module/v3/x/gravity/types";
+option go_package = "github.com/peggyjv/gravity-bridge/module/v4/x/gravity/types";
+option (gogoproto.messagename_all) = true;
 
 // Params represent the Gravity genesis and store parameters
 // gravity_id:
@@ -100,6 +101,8 @@ message Params {
     (gogoproto.nullable) = false
   ];
   uint64 unbond_slashing_signer_set_txs_window = 17;
+  uint64 ethereum_event_vote_window = 18;
+  uint64 confirmed_outgoing_tx_window = 19;
 }
 
 // GenesisState struct

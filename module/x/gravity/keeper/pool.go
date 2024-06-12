@@ -10,7 +10,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 
-	"github.com/peggyjv/gravity-bridge/module/v3/x/gravity/types"
+	"github.com/peggyjv/gravity-bridge/module/v4/x/gravity/types"
 )
 
 // createSendToEthereum
@@ -50,11 +50,11 @@ func (k Keeper) createSendToEthereum(ctx sdk.Context, sender sdk.AccAddress, cou
 	// get next tx id from keeper
 	nextID := k.incrementLastSendToEthereumIDKey(ctx)
 
-	// construct outgoing tx, as part of this process we represent
+	// construct the unbatched tx, as part of this process we represent
 	// the token as an ERC20 token since it is preparing to go to ETH
 	// rather than the denom that is the input to this function.
 
-	// set the outgoing tx in the pool index
+	// set the unbatched transaction in the pool index
 	k.setUnbatchedSendToEthereum(ctx, &types.SendToEthereum{
 		Id:                nextID,
 		Sender:            sender.String(),

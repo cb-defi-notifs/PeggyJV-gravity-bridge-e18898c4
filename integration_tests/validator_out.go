@@ -8,7 +8,7 @@ import (
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/peggyjv/gravity-bridge/module/v3/x/gravity/types"
+	"github.com/peggyjv/gravity-bridge/module/v4/x/gravity/types"
 )
 
 // Validator out tests a validator that is not running the mandatory Ethereum node. This validator will be slashed and the bridge will remain functioning.
@@ -30,7 +30,7 @@ func (s *IntegrationTestSuite) TestValidatorOut() {
 
 		// send from val 0 on eth to val 1 on cosmos
 		s.T().Logf("sending to cosmos")
-		err = s.sendToCosmos(s.chain.validators[1].keyInfo.GetAddress(), sdk.NewInt(200))
+		err = s.sendToCosmos(s.chain.validators[1].address(), sdk.NewInt(200))
 		s.Require().NoError(err, "error sending test denom to cosmos")
 
 		var gravityDenom string
@@ -38,13 +38,13 @@ func (s *IntegrationTestSuite) TestValidatorOut() {
 			val := s.chain.validators[0]
 			kb, err := val.keyring()
 			s.Require().NoError(err)
-			clientCtx, err := s.chain.clientContext("tcp://localhost:26657", &kb, "val", val.keyInfo.GetAddress())
+			clientCtx, err := s.chain.clientContext("tcp://localhost:26657", &kb, "val", val.address())
 			s.Require().NoError(err)
 
 			bankQueryClient := banktypes.NewQueryClient(clientCtx)
 			res, err := bankQueryClient.AllBalances(context.Background(),
 				&banktypes.QueryAllBalancesRequest{
-					Address: s.chain.validators[1].keyInfo.GetAddress().String(),
+					Address: s.chain.validators[1].address().String(),
 				})
 			if err != nil {
 				return false
@@ -73,23 +73,22 @@ func (s *IntegrationTestSuite) TestValidatorOut() {
 			return false
 		}, 105*time.Second, 10*time.Second, "balance never found on cosmos")
 
-		s.T().Logf("sending to ethereum")
+		s.T().Logf("submitting SendToEthereum")
 		sendToEthereumMsg := types.NewMsgSendToEthereum(
-			s.chain.validators[1].keyInfo.GetAddress(),
+			s.chain.validators[1].address(),
 			s.chain.validators[1].ethereumKey.address,
 			sdk.Coin{Denom: gravityDenom, Amount: sdk.NewInt(100)},
 			sdk.Coin{Denom: gravityDenom, Amount: sdk.NewInt(1)},
 		)
 
 		s.dockerPool.RemoveContainerByName("orchestrator3")
-		s.dockerPool.RemoveContainerByName("orchestrator2")
 
 		// Send NewMsgSendToEthereum Message
 		s.Require().Eventuallyf(func() bool {
 			val := s.chain.validators[1]
 			keyring, err := val.keyring()
 			s.Require().NoError(err)
-			clientCtx, err := s.chain.clientContext("tcp://localhost:26657", &keyring, "val", val.keyInfo.GetAddress())
+			clientCtx, err := s.chain.clientContext("tcp://localhost:26657", &keyring, "val", val.address())
 			s.Require().NoError(err)
 
 			response, err := s.chain.sendMsgs(*clientCtx, sendToEthereumMsg)
@@ -106,93 +105,57 @@ func (s *IntegrationTestSuite) TestValidatorOut() {
 			return true
 		}, 5*time.Minute, 10*time.Second, "unable to send to ethereum")
 
-		// Create Transaction batch
-		s.Require().Eventuallyf(func() bool {
-			batchTx := types.NewMsgRequestBatchTx(gravityDenom, s.chain.validators[2].keyInfo.GetAddress())
-
-			keyRing, err := s.chain.validators[2].keyring()
-			s.Require().NoError(err)
-
-			clientCtx, err := s.chain.clientContext("tcp://localhost:26657", &keyRing, "val", s.chain.validators[2].keyInfo.GetAddress())
-			s.Require().NoError(err)
-
-			response, err := s.chain.sendMsgs(*clientCtx, batchTx)
-			s.T().Logf("batch response: %s", response)
-			if err != nil {
-				s.T().Logf("error: %s", err)
-				return false
-			}
-
-			if response.Code != 0 {
-				if response.Code != 32 {
-					s.T().Log(response)
-				}
-				return false
-			}
-
-			s.Require().NoError(err, "error querying delegator bonded validators")
-
-			return true
-		}, 5*time.Minute, 1*time.Second, "can't create TX batch successfully")
-
 		// Confirm batchtx signatures
+		s.T().Log("waiting for batch tx confirms")
 		s.Require().Eventuallyf(func() bool {
 			keyRing, err := s.chain.validators[3].keyring()
 			s.Require().NoError(err)
 
-			clientCtx, err := s.chain.clientContext("tcp://localhost:26657", &keyRing, "val", s.chain.validators[3].keyInfo.GetAddress())
+			clientCtx, err := s.chain.clientContext("tcp://localhost:26657", &keyRing, "val", s.chain.validators[3].address())
 			s.Require().NoError(err)
 			queryClient := types.NewQueryClient(clientCtx)
 			res, err := queryClient.BatchTxConfirmations(context.Background(), &types.BatchTxConfirmationsRequest{BatchNonce: 1, TokenContract: testERC20contract.String()})
-			s.Require().NotEmpty(res.GetSignatures())
-			return true
-		}, 5*time.Minute, 1*time.Minute, "Can't find Batchtx signing info")
+			return len(res.GetSignatures()) != 0
+		}, 5*time.Minute, 10*time.Second, "Can't find Batchtx signing info")
 
 		// Check jail status of validators
+		s.T().Logf("waiting for validator 3 to become jailed")
 		s.Require().Eventuallyf(func() bool {
-			observed_jailing := true
 			orchKey := s.chain.validators[3]
 			keyring, err := orchKey.keyring()
 			s.Require().NoError(err)
 
-			clientCtx, err := s.chain.clientContext("tcp://localhost:26657", &keyring, "val", s.chain.validators[3].keyInfo.GetAddress())
+			clientCtx, err := s.chain.clientContext("tcp://localhost:26657", &keyring, "val", s.chain.validators[3].address())
 			s.Require().NoError(err)
 			newQ := stakingtypes.NewQueryClient(clientCtx)
-			valThree, err := newQ.Validator(context.Background(), &stakingtypes.QueryValidatorRequest{ValidatorAddr: sdk.ValAddress(s.chain.validators[3].keyInfo.GetAddress()).String()})
+
+			val0, err := newQ.Validator(context.Background(), &stakingtypes.QueryValidatorRequest{ValidatorAddr: sdk.ValAddress(s.chain.validators[0].address()).String()})
 			if err != nil {
 				s.T().Logf("error: %s", err)
 				return false
 			}
-			if !valThree.GetValidator().IsJailed() {
-				observed_jailing = false
-				s.T().Logf("validator 3 not jailed yet")
-			}
+			s.Require().False(val0.GetValidator().IsJailed())
 
-			valTwo, err := newQ.Validator(context.Background(), &stakingtypes.QueryValidatorRequest{ValidatorAddr: sdk.ValAddress(s.chain.validators[2].keyInfo.GetAddress()).String()})
+			val1, err := newQ.Validator(context.Background(), &stakingtypes.QueryValidatorRequest{ValidatorAddr: sdk.ValAddress(s.chain.validators[1].address()).String()})
 			if err != nil {
 				s.T().Logf("error: %s", err)
 				return false
 			}
-			if !valTwo.GetValidator().IsJailed() {
-				observed_jailing = false
-				s.T().Logf("validator 2 not jailed yet")
-			}
+			s.Require().False(val1.GetValidator().IsJailed())
 
-			valOne, err := newQ.Validator(context.Background(), &stakingtypes.QueryValidatorRequest{ValidatorAddr: sdk.ValAddress(s.chain.validators[1].keyInfo.GetAddress()).String()})
+			val2, err := newQ.Validator(context.Background(), &stakingtypes.QueryValidatorRequest{ValidatorAddr: sdk.ValAddress(s.chain.validators[2].address()).String()})
 			if err != nil {
 				s.T().Logf("error: %s", err)
 				return false
 			}
-			s.Require().False(valOne.GetValidator().IsJailed())
+			s.Require().False(val2.GetValidator().IsJailed())
 
-			valZero, err := newQ.Validator(context.Background(), &stakingtypes.QueryValidatorRequest{ValidatorAddr: sdk.ValAddress(s.chain.validators[0].keyInfo.GetAddress()).String()})
+			val3, err := newQ.Validator(context.Background(), &stakingtypes.QueryValidatorRequest{ValidatorAddr: sdk.ValAddress(s.chain.validators[3].address()).String()})
 			if err != nil {
 				s.T().Logf("error: %s", err)
 				return false
 			}
-			s.Require().False(valZero.GetValidator().IsJailed())
-
-			return observed_jailing
-		}, 10*time.Minute, 1*time.Minute, "can't confirm jailing status")
+			return val3.GetValidator().IsJailed()
+		}, 5*time.Minute, 5*time.Second, "can't confirm jailing status")
 	})
 }

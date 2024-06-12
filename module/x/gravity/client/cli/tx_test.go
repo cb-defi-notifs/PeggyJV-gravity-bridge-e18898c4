@@ -3,13 +3,13 @@ package cli
 import (
 	"testing"
 
-	"github.com/cosmos/cosmos-sdk/simapp/params"
 	"github.com/cosmos/cosmos-sdk/testutil"
+	moduletestutil "github.com/cosmos/cosmos-sdk/types/module/testutil"
 	"github.com/stretchr/testify/require"
 )
 
 func TestParseCommunityPoolEthereumSpendProposal(t *testing.T) {
-	encodingConfig := params.MakeTestEncodingConfig()
+	encodingConfig := moduletestutil.MakeTestEncodingConfig()
 
 	okJSON := testutil.WriteToNewTempFile(t, `
 {
@@ -22,7 +22,7 @@ func TestParseCommunityPoolEthereumSpendProposal(t *testing.T) {
 }
 `)
 
-	proposal, err := ParseCommunityPoolEthereumSpendProposal(encodingConfig.Marshaler, okJSON.Name())
+	proposal, err := ParseCommunityPoolEthereumSpendProposal(encodingConfig.Codec, okJSON.Name())
 	require.NoError(t, err)
 
 	require.Equal(t, "Community Pool Ethereum Spend", proposal.Title)

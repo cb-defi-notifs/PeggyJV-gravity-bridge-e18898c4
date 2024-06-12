@@ -9,7 +9,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/peggyjv/gravity-bridge/module/v3/x/gravity/types"
+	"github.com/peggyjv/gravity-bridge/module/v4/x/gravity/types"
 )
 
 func TestBatches(t *testing.T) {
@@ -41,7 +41,7 @@ func TestBatches(t *testing.T) {
 	ctx = ctx.WithBlockTime(now)
 
 	// tx batch size is 2, so that some of them stay behind
-	firstBatch := input.GravityKeeper.BuildBatchTx(ctx, myTokenContractAddr, 2)
+	firstBatch := input.GravityKeeper.CreateBatchTx(ctx, myTokenContractAddr, 2)
 
 	// then batch is persisted
 	gotFirstBatch := input.GravityKeeper.GetOutgoingTx(ctx, firstBatch.GetStoreIndex())
@@ -81,7 +81,7 @@ func TestBatches(t *testing.T) {
 	// create the more profitable batch
 	ctx = ctx.WithBlockTime(now)
 	// tx batch size is 2, so that some of them stay behind
-	secondBatch := input.GravityKeeper.BuildBatchTx(ctx, myTokenContractAddr, 2)
+	secondBatch := input.GravityKeeper.CreateBatchTx(ctx, myTokenContractAddr, 2)
 
 	// check that the more profitable batch has the right txs in it
 	expSecondBatch := &types.BatchTx{
@@ -160,7 +160,7 @@ func TestBatchesFullCoins(t *testing.T) {
 	ctx = ctx.WithBlockTime(now)
 
 	// tx batch size is 2, so that some of them stay behind
-	firstBatch := input.GravityKeeper.BuildBatchTx(ctx, myTokenContractAddr, 2)
+	firstBatch := input.GravityKeeper.CreateBatchTx(ctx, myTokenContractAddr, 2)
 
 	// then batch is persisted
 	gotFirstBatch := input.GravityKeeper.GetOutgoingTx(ctx, firstBatch.GetStoreIndex())
@@ -228,7 +228,7 @@ func TestBatchesFullCoins(t *testing.T) {
 	// create the more profitable batch
 	ctx = ctx.WithBlockTime(now)
 	// tx batch size is 2, so that some of them stay behind
-	secondBatch := input.GravityKeeper.BuildBatchTx(ctx, myTokenContractAddr, 2)
+	secondBatch := input.GravityKeeper.CreateBatchTx(ctx, myTokenContractAddr, 2)
 
 	// check that the more profitable batch has the right txs in it
 	expSecondBatch := &types.BatchTx{
@@ -340,7 +340,7 @@ func TestPoolTxRefund(t *testing.T) {
 	ctx = ctx.WithBlockTime(now)
 
 	// tx batch size is 2, so that some of them stay behind
-	input.GravityKeeper.BuildBatchTx(ctx, myTokenContractAddr, 2)
+	input.GravityKeeper.CreateBatchTx(ctx, myTokenContractAddr, 2)
 
 	// try to refund a tx that's in a batch
 	err := input.GravityKeeper.cancelSendToEthereum(ctx, 2, mySender.String())
@@ -376,7 +376,101 @@ func TestEmptyBatch(t *testing.T) {
 
 	// no transactions should be included in this batch
 	ctx = ctx.WithBlockTime(now)
-	batchTx := input.GravityKeeper.BuildBatchTx(ctx, myTokenContractAddr, 2)
+	batchTx := input.GravityKeeper.CreateBatchTx(ctx, myTokenContractAddr, 2)
 
 	require.Nil(t, batchTx)
+}
+
+func TestGetUnconfirmedBatchTxs(t *testing.T) {
+	input, ctx := SetupFiveValChain(t)
+	gk := input.GravityKeeper
+	vals := input.StakingKeeper.GetAllValidators(ctx)
+	val1, err := sdk.ValAddressFromBech32(vals[0].OperatorAddress)
+	require.NoError(t, err)
+	val2, err := sdk.ValAddressFromBech32(vals[1].OperatorAddress)
+	require.NoError(t, err)
+
+	blockheight := uint64(ctx.BlockHeight())
+	sig := []byte("dummysig")
+	gk.SetCompletedOutgoingTx(ctx, &types.BatchTx{
+		BatchNonce: 1,
+		Height:     uint64(ctx.BlockHeight()),
+	})
+	gk.SetOutgoingTx(ctx, &types.BatchTx{
+		BatchNonce: 2,
+		Height:     uint64(ctx.BlockHeight()),
+	})
+
+	// val1 signs both
+	// val2 signs one
+	gk.SetEthereumSignature(
+		ctx,
+		&types.BatchTxConfirmation{
+			BatchNonce: 1,
+			Signature:  sig,
+		},
+		val1,
+	)
+	gk.SetEthereumSignature(
+		ctx,
+		&types.BatchTxConfirmation{
+			BatchNonce: 2,
+			Signature:  sig,
+		},
+		val1,
+	)
+	gk.SetEthereumSignature(
+		ctx,
+		&types.BatchTxConfirmation{
+			BatchNonce: 1,
+			Signature:  sig,
+		},
+		val2,
+	)
+
+	require.Empty(t, gk.GetUnsignedBatchTxs(ctx, val1))
+	require.Equal(t, 1, len(gk.GetUnsignedBatchTxs(ctx, val2)))
+
+	// Confirm ordering
+	val3, err := sdk.ValAddressFromBech32(vals[2].OperatorAddress)
+	require.NoError(t, err)
+
+	addressA := "0xAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+	addressB := "0xBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"
+	gk.SetCompletedOutgoingTx(ctx, &types.BatchTx{
+		TokenContract: addressB,
+		BatchNonce:    3,
+		Height:        blockheight,
+	})
+	gk.SetCompletedOutgoingTx(ctx, &types.BatchTx{
+		TokenContract: addressA,
+		BatchNonce:    4,
+		Height:        blockheight,
+	})
+	gk.SetOutgoingTx(ctx, &types.BatchTx{
+		TokenContract: addressB,
+		BatchNonce:    5,
+		Height:        blockheight,
+	})
+	gk.SetOutgoingTx(ctx, &types.BatchTx{
+		TokenContract: addressA,
+		BatchNonce:    6,
+		Height:        blockheight,
+	})
+	gk.SetOutgoingTx(ctx, &types.BatchTx{
+		TokenContract: addressB,
+		BatchNonce:    7,
+		Height:        blockheight,
+	})
+
+	unconfirmed := gk.GetUnsignedBatchTxs(ctx, val3)
+
+	require.EqualValues(t, 7, len(unconfirmed))
+	require.EqualValues(t, unconfirmed[0].BatchNonce, 1)
+	require.EqualValues(t, unconfirmed[1].BatchNonce, 2)
+	require.EqualValues(t, unconfirmed[2].BatchNonce, 3)
+	require.EqualValues(t, unconfirmed[3].BatchNonce, 4)
+	require.EqualValues(t, unconfirmed[4].BatchNonce, 5)
+	require.EqualValues(t, unconfirmed[5].BatchNonce, 6)
+	require.EqualValues(t, unconfirmed[6].BatchNonce, 7)
 }

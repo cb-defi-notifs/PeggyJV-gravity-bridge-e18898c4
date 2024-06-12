@@ -6,12 +6,14 @@ package types
 import (
 	context "context"
 	fmt "fmt"
+	_ "github.com/cosmos/cosmos-proto"
+	types1 "github.com/cosmos/cosmos-sdk/codec/types"
 	github_com_cosmos_cosmos_sdk_types "github.com/cosmos/cosmos-sdk/types"
 	types "github.com/cosmos/cosmos-sdk/types"
 	query "github.com/cosmos/cosmos-sdk/types/query"
-	_ "github.com/gogo/protobuf/gogoproto"
-	grpc1 "github.com/gogo/protobuf/grpc"
-	proto "github.com/gogo/protobuf/proto"
+	_ "github.com/cosmos/gogoproto/gogoproto"
+	grpc1 "github.com/cosmos/gogoproto/grpc"
+	proto "github.com/cosmos/gogoproto/proto"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
@@ -32,7 +34,7 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
-//  rpc Params
+// rpc Params
 type ParamsRequest struct {
 }
 
@@ -68,6 +70,10 @@ func (m *ParamsRequest) XXX_DiscardUnknown() {
 }
 
 var xxx_messageInfo_ParamsRequest proto.InternalMessageInfo
+
+func (*ParamsRequest) XXX_MessageName() string {
+	return "gravity.v1.ParamsRequest"
+}
 
 type ParamsResponse struct {
 	Params Params `protobuf:"bytes,1,opt,name=params,proto3" json:"params"`
@@ -113,7 +119,11 @@ func (m *ParamsResponse) GetParams() Params {
 	return Params{}
 }
 
-//  rpc SignerSetTx
+func (*ParamsResponse) XXX_MessageName() string {
+	return "gravity.v1.ParamsResponse"
+}
+
+// rpc SignerSetTx
 type SignerSetTxRequest struct {
 	SignerSetNonce uint64 `protobuf:"varint,1,opt,name=signer_set_nonce,json=signerSetNonce,proto3" json:"signer_set_nonce,omitempty"`
 }
@@ -158,6 +168,10 @@ func (m *SignerSetTxRequest) GetSignerSetNonce() uint64 {
 	return 0
 }
 
+func (*SignerSetTxRequest) XXX_MessageName() string {
+	return "gravity.v1.SignerSetTxRequest"
+}
+
 type LatestSignerSetTxRequest struct {
 }
 
@@ -193,6 +207,10 @@ func (m *LatestSignerSetTxRequest) XXX_DiscardUnknown() {
 }
 
 var xxx_messageInfo_LatestSignerSetTxRequest proto.InternalMessageInfo
+
+func (*LatestSignerSetTxRequest) XXX_MessageName() string {
+	return "gravity.v1.LatestSignerSetTxRequest"
+}
 
 type SignerSetTxResponse struct {
 	SignerSet *SignerSetTx `protobuf:"bytes,1,opt,name=signer_set,json=signerSet,proto3" json:"signer_set,omitempty"`
@@ -238,7 +256,11 @@ func (m *SignerSetTxResponse) GetSignerSet() *SignerSetTx {
 	return nil
 }
 
-//  rpc BatchTx
+func (*SignerSetTxResponse) XXX_MessageName() string {
+	return "gravity.v1.SignerSetTxResponse"
+}
+
+// rpc BatchTx
 type BatchTxRequest struct {
 	TokenContract string `protobuf:"bytes,1,opt,name=token_contract,json=tokenContract,proto3" json:"token_contract,omitempty"`
 	BatchNonce    uint64 `protobuf:"varint,2,opt,name=batch_nonce,json=batchNonce,proto3" json:"batch_nonce,omitempty"`
@@ -291,6 +313,10 @@ func (m *BatchTxRequest) GetBatchNonce() uint64 {
 	return 0
 }
 
+func (*BatchTxRequest) XXX_MessageName() string {
+	return "gravity.v1.BatchTxRequest"
+}
+
 type BatchTxResponse struct {
 	Batch *BatchTx `protobuf:"bytes,1,opt,name=batch,proto3" json:"batch,omitempty"`
 }
@@ -335,7 +361,11 @@ func (m *BatchTxResponse) GetBatch() *BatchTx {
 	return nil
 }
 
-//  rpc ContractCallTx
+func (*BatchTxResponse) XXX_MessageName() string {
+	return "gravity.v1.BatchTxResponse"
+}
+
+// rpc ContractCallTx
 type ContractCallTxRequest struct {
 	InvalidationScope []byte `protobuf:"bytes,1,opt,name=invalidation_scope,json=invalidationScope,proto3" json:"invalidation_scope,omitempty"`
 	InvalidationNonce uint64 `protobuf:"varint,2,opt,name=invalidation_nonce,json=invalidationNonce,proto3" json:"invalidation_nonce,omitempty"`
@@ -388,6 +418,10 @@ func (m *ContractCallTxRequest) GetInvalidationNonce() uint64 {
 	return 0
 }
 
+func (*ContractCallTxRequest) XXX_MessageName() string {
+	return "gravity.v1.ContractCallTxRequest"
+}
+
 type ContractCallTxResponse struct {
 	LogicCall *ContractCallTx `protobuf:"bytes,1,opt,name=logic_call,json=logicCall,proto3" json:"logic_call,omitempty"`
 }
@@ -430,6 +464,10 @@ func (m *ContractCallTxResponse) GetLogicCall() *ContractCallTx {
 		return m.LogicCall
 	}
 	return nil
+}
+
+func (*ContractCallTxResponse) XXX_MessageName() string {
+	return "gravity.v1.ContractCallTxResponse"
 }
 
 // rpc SignerSetTxConfirmations
@@ -477,6 +515,10 @@ func (m *SignerSetTxConfirmationsRequest) GetSignerSetNonce() uint64 {
 	return 0
 }
 
+func (*SignerSetTxConfirmationsRequest) XXX_MessageName() string {
+	return "gravity.v1.SignerSetTxConfirmationsRequest"
+}
+
 type SignerSetTxConfirmationsResponse struct {
 	Signatures []*SignerSetTxConfirmation `protobuf:"bytes,1,rep,name=signatures,proto3" json:"signatures,omitempty"`
 }
@@ -521,7 +563,11 @@ func (m *SignerSetTxConfirmationsResponse) GetSignatures() []*SignerSetTxConfirm
 	return nil
 }
 
-//  rpc SignerSetTxs
+func (*SignerSetTxConfirmationsResponse) XXX_MessageName() string {
+	return "gravity.v1.SignerSetTxConfirmationsResponse"
+}
+
+// rpc SignerSetTxs
 type SignerSetTxsRequest struct {
 	Pagination *query.PageRequest `protobuf:"bytes,1,opt,name=pagination,proto3" json:"pagination,omitempty"`
 }
@@ -564,6 +610,10 @@ func (m *SignerSetTxsRequest) GetPagination() *query.PageRequest {
 		return m.Pagination
 	}
 	return nil
+}
+
+func (*SignerSetTxsRequest) XXX_MessageName() string {
+	return "gravity.v1.SignerSetTxsRequest"
 }
 
 type SignerSetTxsResponse struct {
@@ -618,7 +668,11 @@ func (m *SignerSetTxsResponse) GetPagination() *query.PageResponse {
 	return nil
 }
 
-//  rpc BatchTxs
+func (*SignerSetTxsResponse) XXX_MessageName() string {
+	return "gravity.v1.SignerSetTxsResponse"
+}
+
+// rpc BatchTxs
 type BatchTxsRequest struct {
 	Pagination *query.PageRequest `protobuf:"bytes,1,opt,name=pagination,proto3" json:"pagination,omitempty"`
 }
@@ -661,6 +715,10 @@ func (m *BatchTxsRequest) GetPagination() *query.PageRequest {
 		return m.Pagination
 	}
 	return nil
+}
+
+func (*BatchTxsRequest) XXX_MessageName() string {
+	return "gravity.v1.BatchTxsRequest"
 }
 
 type BatchTxsResponse struct {
@@ -715,7 +773,11 @@ func (m *BatchTxsResponse) GetPagination() *query.PageResponse {
 	return nil
 }
 
-//  rpc ContractCallTxs
+func (*BatchTxsResponse) XXX_MessageName() string {
+	return "gravity.v1.BatchTxsResponse"
+}
+
+// rpc ContractCallTxs
 type ContractCallTxsRequest struct {
 	Pagination *query.PageRequest `protobuf:"bytes,1,opt,name=pagination,proto3" json:"pagination,omitempty"`
 }
@@ -758,6 +820,10 @@ func (m *ContractCallTxsRequest) GetPagination() *query.PageRequest {
 		return m.Pagination
 	}
 	return nil
+}
+
+func (*ContractCallTxsRequest) XXX_MessageName() string {
+	return "gravity.v1.ContractCallTxsRequest"
 }
 
 type ContractCallTxsResponse struct {
@@ -812,6 +878,10 @@ func (m *ContractCallTxsResponse) GetPagination() *query.PageResponse {
 	return nil
 }
 
+func (*ContractCallTxsResponse) XXX_MessageName() string {
+	return "gravity.v1.ContractCallTxsResponse"
+}
+
 // rpc UnsignedSignerSetTxs
 type UnsignedSignerSetTxsRequest struct {
 	// NOTE: this is an sdk.AccAddress and can represent either the
@@ -859,6 +929,10 @@ func (m *UnsignedSignerSetTxsRequest) GetAddress() string {
 	return ""
 }
 
+func (*UnsignedSignerSetTxsRequest) XXX_MessageName() string {
+	return "gravity.v1.UnsignedSignerSetTxsRequest"
+}
+
 type UnsignedSignerSetTxsResponse struct {
 	SignerSets []*SignerSetTx `protobuf:"bytes,1,rep,name=signer_sets,json=signerSets,proto3" json:"signer_sets,omitempty"`
 }
@@ -901,6 +975,10 @@ func (m *UnsignedSignerSetTxsResponse) GetSignerSets() []*SignerSetTx {
 		return m.SignerSets
 	}
 	return nil
+}
+
+func (*UnsignedSignerSetTxsResponse) XXX_MessageName() string {
+	return "gravity.v1.UnsignedSignerSetTxsResponse"
 }
 
 type UnsignedBatchTxsRequest struct {
@@ -949,6 +1027,10 @@ func (m *UnsignedBatchTxsRequest) GetAddress() string {
 	return ""
 }
 
+func (*UnsignedBatchTxsRequest) XXX_MessageName() string {
+	return "gravity.v1.UnsignedBatchTxsRequest"
+}
+
 type UnsignedBatchTxsResponse struct {
 	// Note these are returned with the signature empty
 	Batches []*BatchTx `protobuf:"bytes,1,rep,name=batches,proto3" json:"batches,omitempty"`
@@ -994,7 +1076,11 @@ func (m *UnsignedBatchTxsResponse) GetBatches() []*BatchTx {
 	return nil
 }
 
-//  rpc UnsignedContractCallTxs
+func (*UnsignedBatchTxsResponse) XXX_MessageName() string {
+	return "gravity.v1.UnsignedBatchTxsResponse"
+}
+
+// rpc UnsignedContractCallTxs
 type UnsignedContractCallTxsRequest struct {
 	Address string `protobuf:"bytes,1,opt,name=address,proto3" json:"address,omitempty"`
 }
@@ -1037,6 +1123,10 @@ func (m *UnsignedContractCallTxsRequest) GetAddress() string {
 		return m.Address
 	}
 	return ""
+}
+
+func (*UnsignedContractCallTxsRequest) XXX_MessageName() string {
+	return "gravity.v1.UnsignedContractCallTxsRequest"
 }
 
 type UnsignedContractCallTxsResponse struct {
@@ -1083,6 +1173,10 @@ func (m *UnsignedContractCallTxsResponse) GetCalls() []*ContractCallTx {
 	return nil
 }
 
+func (*UnsignedContractCallTxsResponse) XXX_MessageName() string {
+	return "gravity.v1.UnsignedContractCallTxsResponse"
+}
+
 type BatchTxFeesRequest struct {
 }
 
@@ -1118,6 +1212,10 @@ func (m *BatchTxFeesRequest) XXX_DiscardUnknown() {
 }
 
 var xxx_messageInfo_BatchTxFeesRequest proto.InternalMessageInfo
+
+func (*BatchTxFeesRequest) XXX_MessageName() string {
+	return "gravity.v1.BatchTxFeesRequest"
+}
 
 type BatchTxFeesResponse struct {
 	Fees github_com_cosmos_cosmos_sdk_types.Coins `protobuf:"bytes,1,rep,name=fees,proto3,castrepeated=github.com/cosmos/cosmos-sdk/types.Coins" json:"fees"`
@@ -1161,6 +1259,10 @@ func (m *BatchTxFeesResponse) GetFees() github_com_cosmos_cosmos_sdk_types.Coins
 		return m.Fees
 	}
 	return nil
+}
+
+func (*BatchTxFeesResponse) XXX_MessageName() string {
+	return "gravity.v1.BatchTxFeesResponse"
 }
 
 type ContractCallTxConfirmationsRequest struct {
@@ -1215,6 +1317,10 @@ func (m *ContractCallTxConfirmationsRequest) GetInvalidationNonce() uint64 {
 	return 0
 }
 
+func (*ContractCallTxConfirmationsRequest) XXX_MessageName() string {
+	return "gravity.v1.ContractCallTxConfirmationsRequest"
+}
+
 type ContractCallTxConfirmationsResponse struct {
 	Signatures []*ContractCallTxConfirmation `protobuf:"bytes,1,rep,name=signatures,proto3" json:"signatures,omitempty"`
 }
@@ -1257,6 +1363,10 @@ func (m *ContractCallTxConfirmationsResponse) GetSignatures() []*ContractCallTxC
 		return m.Signatures
 	}
 	return nil
+}
+
+func (*ContractCallTxConfirmationsResponse) XXX_MessageName() string {
+	return "gravity.v1.ContractCallTxConfirmationsResponse"
 }
 
 type BatchTxConfirmationsRequest struct {
@@ -1311,6 +1421,10 @@ func (m *BatchTxConfirmationsRequest) GetTokenContract() string {
 	return ""
 }
 
+func (*BatchTxConfirmationsRequest) XXX_MessageName() string {
+	return "gravity.v1.BatchTxConfirmationsRequest"
+}
+
 type BatchTxConfirmationsResponse struct {
 	Signatures []*BatchTxConfirmation `protobuf:"bytes,1,rep,name=signatures,proto3" json:"signatures,omitempty"`
 }
@@ -1353,6 +1467,10 @@ func (m *BatchTxConfirmationsResponse) GetSignatures() []*BatchTxConfirmation {
 		return m.Signatures
 	}
 	return nil
+}
+
+func (*BatchTxConfirmationsResponse) XXX_MessageName() string {
+	return "gravity.v1.BatchTxConfirmationsResponse"
 }
 
 type LastSubmittedEthereumEventRequest struct {
@@ -1399,6 +1517,10 @@ func (m *LastSubmittedEthereumEventRequest) GetAddress() string {
 	return ""
 }
 
+func (*LastSubmittedEthereumEventRequest) XXX_MessageName() string {
+	return "gravity.v1.LastSubmittedEthereumEventRequest"
+}
+
 type LastSubmittedEthereumEventResponse struct {
 	EventNonce uint64 `protobuf:"varint,1,opt,name=event_nonce,json=eventNonce,proto3" json:"event_nonce,omitempty"`
 }
@@ -1443,6 +1565,10 @@ func (m *LastSubmittedEthereumEventResponse) GetEventNonce() uint64 {
 	return 0
 }
 
+func (*LastSubmittedEthereumEventResponse) XXX_MessageName() string {
+	return "gravity.v1.LastSubmittedEthereumEventResponse"
+}
+
 type ERC20ToDenomRequest struct {
 	Erc20 string `protobuf:"bytes,1,opt,name=erc20,proto3" json:"erc20,omitempty"`
 }
@@ -1485,6 +1611,10 @@ func (m *ERC20ToDenomRequest) GetErc20() string {
 		return m.Erc20
 	}
 	return ""
+}
+
+func (*ERC20ToDenomRequest) XXX_MessageName() string {
+	return "gravity.v1.ERC20ToDenomRequest"
 }
 
 type ERC20ToDenomResponse struct {
@@ -1539,6 +1669,10 @@ func (m *ERC20ToDenomResponse) GetCosmosOriginated() bool {
 	return false
 }
 
+func (*ERC20ToDenomResponse) XXX_MessageName() string {
+	return "gravity.v1.ERC20ToDenomResponse"
+}
+
 type DenomToERC20ParamsRequest struct {
 	Denom string `protobuf:"bytes,1,opt,name=denom,proto3" json:"denom,omitempty"`
 }
@@ -1581,6 +1715,10 @@ func (m *DenomToERC20ParamsRequest) GetDenom() string {
 		return m.Denom
 	}
 	return ""
+}
+
+func (*DenomToERC20ParamsRequest) XXX_MessageName() string {
+	return "gravity.v1.DenomToERC20ParamsRequest"
 }
 
 type DenomToERC20ParamsResponse struct {
@@ -1651,6 +1789,10 @@ func (m *DenomToERC20ParamsResponse) GetErc20Decimals() uint64 {
 	return 0
 }
 
+func (*DenomToERC20ParamsResponse) XXX_MessageName() string {
+	return "gravity.v1.DenomToERC20ParamsResponse"
+}
+
 type DenomToERC20Request struct {
 	Denom string `protobuf:"bytes,1,opt,name=denom,proto3" json:"denom,omitempty"`
 }
@@ -1693,6 +1835,10 @@ func (m *DenomToERC20Request) GetDenom() string {
 		return m.Denom
 	}
 	return ""
+}
+
+func (*DenomToERC20Request) XXX_MessageName() string {
+	return "gravity.v1.DenomToERC20Request"
 }
 
 type DenomToERC20Response struct {
@@ -1747,6 +1893,10 @@ func (m *DenomToERC20Response) GetCosmosOriginated() bool {
 	return false
 }
 
+func (*DenomToERC20Response) XXX_MessageName() string {
+	return "gravity.v1.DenomToERC20Response"
+}
+
 type DelegateKeysByValidatorRequest struct {
 	ValidatorAddress string `protobuf:"bytes,1,opt,name=validator_address,json=validatorAddress,proto3" json:"validator_address,omitempty"`
 }
@@ -1789,6 +1939,10 @@ func (m *DelegateKeysByValidatorRequest) GetValidatorAddress() string {
 		return m.ValidatorAddress
 	}
 	return ""
+}
+
+func (*DelegateKeysByValidatorRequest) XXX_MessageName() string {
+	return "gravity.v1.DelegateKeysByValidatorRequest"
 }
 
 type DelegateKeysByValidatorResponse struct {
@@ -1843,6 +1997,10 @@ func (m *DelegateKeysByValidatorResponse) GetOrchestratorAddress() string {
 	return ""
 }
 
+func (*DelegateKeysByValidatorResponse) XXX_MessageName() string {
+	return "gravity.v1.DelegateKeysByValidatorResponse"
+}
+
 type DelegateKeysByEthereumSignerRequest struct {
 	EthereumSigner string `protobuf:"bytes,1,opt,name=ethereum_signer,json=ethereumSigner,proto3" json:"ethereum_signer,omitempty"`
 }
@@ -1885,6 +2043,10 @@ func (m *DelegateKeysByEthereumSignerRequest) GetEthereumSigner() string {
 		return m.EthereumSigner
 	}
 	return ""
+}
+
+func (*DelegateKeysByEthereumSignerRequest) XXX_MessageName() string {
+	return "gravity.v1.DelegateKeysByEthereumSignerRequest"
 }
 
 type DelegateKeysByEthereumSignerResponse struct {
@@ -1939,6 +2101,10 @@ func (m *DelegateKeysByEthereumSignerResponse) GetOrchestratorAddress() string {
 	return ""
 }
 
+func (*DelegateKeysByEthereumSignerResponse) XXX_MessageName() string {
+	return "gravity.v1.DelegateKeysByEthereumSignerResponse"
+}
+
 type DelegateKeysByOrchestratorRequest struct {
 	OrchestratorAddress string `protobuf:"bytes,1,opt,name=orchestrator_address,json=orchestratorAddress,proto3" json:"orchestrator_address,omitempty"`
 }
@@ -1981,6 +2147,10 @@ func (m *DelegateKeysByOrchestratorRequest) GetOrchestratorAddress() string {
 		return m.OrchestratorAddress
 	}
 	return ""
+}
+
+func (*DelegateKeysByOrchestratorRequest) XXX_MessageName() string {
+	return "gravity.v1.DelegateKeysByOrchestratorRequest"
 }
 
 type DelegateKeysByOrchestratorResponse struct {
@@ -2035,6 +2205,10 @@ func (m *DelegateKeysByOrchestratorResponse) GetEthereumSigner() string {
 	return ""
 }
 
+func (*DelegateKeysByOrchestratorResponse) XXX_MessageName() string {
+	return "gravity.v1.DelegateKeysByOrchestratorResponse"
+}
+
 type DelegateKeysRequest struct {
 }
 
@@ -2070,6 +2244,10 @@ func (m *DelegateKeysRequest) XXX_DiscardUnknown() {
 }
 
 var xxx_messageInfo_DelegateKeysRequest proto.InternalMessageInfo
+
+func (*DelegateKeysRequest) XXX_MessageName() string {
+	return "gravity.v1.DelegateKeysRequest"
+}
 
 type DelegateKeysResponse struct {
 	DelegateKeys []*MsgDelegateKeys `protobuf:"bytes,1,rep,name=delegate_keys,json=delegateKeys,proto3" json:"delegate_keys,omitempty"`
@@ -2113,6 +2291,10 @@ func (m *DelegateKeysResponse) GetDelegateKeys() []*MsgDelegateKeys {
 		return m.DelegateKeys
 	}
 	return nil
+}
+
+func (*DelegateKeysResponse) XXX_MessageName() string {
+	return "gravity.v1.DelegateKeysResponse"
 }
 
 // NOTE: if there is no sender address, return all
@@ -2160,6 +2342,10 @@ func (m *BatchedSendToEthereumsRequest) GetSenderAddress() string {
 	return ""
 }
 
+func (*BatchedSendToEthereumsRequest) XXX_MessageName() string {
+	return "gravity.v1.BatchedSendToEthereumsRequest"
+}
+
 type BatchedSendToEthereumsResponse struct {
 	SendToEthereums []*SendToEthereum `protobuf:"bytes,1,rep,name=send_to_ethereums,json=sendToEthereums,proto3" json:"send_to_ethereums,omitempty"`
 }
@@ -2202,6 +2388,10 @@ func (m *BatchedSendToEthereumsResponse) GetSendToEthereums() []*SendToEthereum 
 		return m.SendToEthereums
 	}
 	return nil
+}
+
+func (*BatchedSendToEthereumsResponse) XXX_MessageName() string {
+	return "gravity.v1.BatchedSendToEthereumsResponse"
 }
 
 type UnbatchedSendToEthereumsRequest struct {
@@ -2256,6 +2446,10 @@ func (m *UnbatchedSendToEthereumsRequest) GetPagination() *query.PageRequest {
 	return nil
 }
 
+func (*UnbatchedSendToEthereumsRequest) XXX_MessageName() string {
+	return "gravity.v1.UnbatchedSendToEthereumsRequest"
+}
+
 type UnbatchedSendToEthereumsResponse struct {
 	SendToEthereums []*SendToEthereum   `protobuf:"bytes,1,rep,name=send_to_ethereums,json=sendToEthereums,proto3" json:"send_to_ethereums,omitempty"`
 	Pagination      *query.PageResponse `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
@@ -2308,6 +2502,10 @@ func (m *UnbatchedSendToEthereumsResponse) GetPagination() *query.PageResponse {
 	return nil
 }
 
+func (*UnbatchedSendToEthereumsResponse) XXX_MessageName() string {
+	return "gravity.v1.UnbatchedSendToEthereumsResponse"
+}
+
 type LastObservedEthereumHeightRequest struct {
 }
 
@@ -2343,6 +2541,10 @@ func (m *LastObservedEthereumHeightRequest) XXX_DiscardUnknown() {
 }
 
 var xxx_messageInfo_LastObservedEthereumHeightRequest proto.InternalMessageInfo
+
+func (*LastObservedEthereumHeightRequest) XXX_MessageName() string {
+	return "gravity.v1.LastObservedEthereumHeightRequest"
+}
 
 type LastObservedEthereumHeightResponse struct {
 	LastObservedEthereumHeight *LatestEthereumBlockHeight `protobuf:"bytes,1,opt,name=last_observed_ethereum_height,json=lastObservedEthereumHeight,proto3" json:"last_observed_ethereum_height,omitempty"`
@@ -2388,6 +2590,781 @@ func (m *LastObservedEthereumHeightResponse) GetLastObservedEthereumHeight() *La
 	return nil
 }
 
+func (*LastObservedEthereumHeightResponse) XXX_MessageName() string {
+	return "gravity.v1.LastObservedEthereumHeightResponse"
+}
+
+type CompletedBatchTxsRequest struct {
+}
+
+func (m *CompletedBatchTxsRequest) Reset()         { *m = CompletedBatchTxsRequest{} }
+func (m *CompletedBatchTxsRequest) String() string { return proto.CompactTextString(m) }
+func (*CompletedBatchTxsRequest) ProtoMessage()    {}
+func (*CompletedBatchTxsRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_29a9d4192703013c, []int{51}
+}
+func (m *CompletedBatchTxsRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *CompletedBatchTxsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_CompletedBatchTxsRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *CompletedBatchTxsRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CompletedBatchTxsRequest.Merge(m, src)
+}
+func (m *CompletedBatchTxsRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *CompletedBatchTxsRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_CompletedBatchTxsRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_CompletedBatchTxsRequest proto.InternalMessageInfo
+
+func (*CompletedBatchTxsRequest) XXX_MessageName() string {
+	return "gravity.v1.CompletedBatchTxsRequest"
+}
+
+type CompletedBatchTxsResponse struct {
+	CompletedBatchTxs []*BatchTx `protobuf:"bytes,1,rep,name=completed_batch_txs,json=completedBatchTxs,proto3" json:"completed_batch_txs,omitempty"`
+}
+
+func (m *CompletedBatchTxsResponse) Reset()         { *m = CompletedBatchTxsResponse{} }
+func (m *CompletedBatchTxsResponse) String() string { return proto.CompactTextString(m) }
+func (*CompletedBatchTxsResponse) ProtoMessage()    {}
+func (*CompletedBatchTxsResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_29a9d4192703013c, []int{52}
+}
+func (m *CompletedBatchTxsResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *CompletedBatchTxsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_CompletedBatchTxsResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *CompletedBatchTxsResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CompletedBatchTxsResponse.Merge(m, src)
+}
+func (m *CompletedBatchTxsResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *CompletedBatchTxsResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_CompletedBatchTxsResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_CompletedBatchTxsResponse proto.InternalMessageInfo
+
+func (m *CompletedBatchTxsResponse) GetCompletedBatchTxs() []*BatchTx {
+	if m != nil {
+		return m.CompletedBatchTxs
+	}
+	return nil
+}
+
+func (*CompletedBatchTxsResponse) XXX_MessageName() string {
+	return "gravity.v1.CompletedBatchTxsResponse"
+}
+
+type CompletedContractCallTxsRequest struct {
+}
+
+func (m *CompletedContractCallTxsRequest) Reset()         { *m = CompletedContractCallTxsRequest{} }
+func (m *CompletedContractCallTxsRequest) String() string { return proto.CompactTextString(m) }
+func (*CompletedContractCallTxsRequest) ProtoMessage()    {}
+func (*CompletedContractCallTxsRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_29a9d4192703013c, []int{53}
+}
+func (m *CompletedContractCallTxsRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *CompletedContractCallTxsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_CompletedContractCallTxsRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *CompletedContractCallTxsRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CompletedContractCallTxsRequest.Merge(m, src)
+}
+func (m *CompletedContractCallTxsRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *CompletedContractCallTxsRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_CompletedContractCallTxsRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_CompletedContractCallTxsRequest proto.InternalMessageInfo
+
+func (*CompletedContractCallTxsRequest) XXX_MessageName() string {
+	return "gravity.v1.CompletedContractCallTxsRequest"
+}
+
+type CompletedContractCallTxsResponse struct {
+	CompletedContractCallTxs []*ContractCallTx `protobuf:"bytes,1,rep,name=completed_contract_call_txs,json=completedContractCallTxs,proto3" json:"completed_contract_call_txs,omitempty"`
+}
+
+func (m *CompletedContractCallTxsResponse) Reset()         { *m = CompletedContractCallTxsResponse{} }
+func (m *CompletedContractCallTxsResponse) String() string { return proto.CompactTextString(m) }
+func (*CompletedContractCallTxsResponse) ProtoMessage()    {}
+func (*CompletedContractCallTxsResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_29a9d4192703013c, []int{54}
+}
+func (m *CompletedContractCallTxsResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *CompletedContractCallTxsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_CompletedContractCallTxsResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *CompletedContractCallTxsResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CompletedContractCallTxsResponse.Merge(m, src)
+}
+func (m *CompletedContractCallTxsResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *CompletedContractCallTxsResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_CompletedContractCallTxsResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_CompletedContractCallTxsResponse proto.InternalMessageInfo
+
+func (m *CompletedContractCallTxsResponse) GetCompletedContractCallTxs() []*ContractCallTx {
+	if m != nil {
+		return m.CompletedContractCallTxs
+	}
+	return nil
+}
+
+func (*CompletedContractCallTxsResponse) XXX_MessageName() string {
+	return "gravity.v1.CompletedContractCallTxsResponse"
+}
+
+type CompletedSignerSetTxsRequest struct {
+}
+
+func (m *CompletedSignerSetTxsRequest) Reset()         { *m = CompletedSignerSetTxsRequest{} }
+func (m *CompletedSignerSetTxsRequest) String() string { return proto.CompactTextString(m) }
+func (*CompletedSignerSetTxsRequest) ProtoMessage()    {}
+func (*CompletedSignerSetTxsRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_29a9d4192703013c, []int{55}
+}
+func (m *CompletedSignerSetTxsRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *CompletedSignerSetTxsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_CompletedSignerSetTxsRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *CompletedSignerSetTxsRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CompletedSignerSetTxsRequest.Merge(m, src)
+}
+func (m *CompletedSignerSetTxsRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *CompletedSignerSetTxsRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_CompletedSignerSetTxsRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_CompletedSignerSetTxsRequest proto.InternalMessageInfo
+
+func (*CompletedSignerSetTxsRequest) XXX_MessageName() string {
+	return "gravity.v1.CompletedSignerSetTxsRequest"
+}
+
+type CompletedSignerSetTxsResponse struct {
+	CompletedSignerSetTxs []*SignerSetTx `protobuf:"bytes,1,rep,name=completed_signer_set_txs,json=completedSignerSetTxs,proto3" json:"completed_signer_set_txs,omitempty"`
+}
+
+func (m *CompletedSignerSetTxsResponse) Reset()         { *m = CompletedSignerSetTxsResponse{} }
+func (m *CompletedSignerSetTxsResponse) String() string { return proto.CompactTextString(m) }
+func (*CompletedSignerSetTxsResponse) ProtoMessage()    {}
+func (*CompletedSignerSetTxsResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_29a9d4192703013c, []int{56}
+}
+func (m *CompletedSignerSetTxsResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *CompletedSignerSetTxsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_CompletedSignerSetTxsResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *CompletedSignerSetTxsResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CompletedSignerSetTxsResponse.Merge(m, src)
+}
+func (m *CompletedSignerSetTxsResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *CompletedSignerSetTxsResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_CompletedSignerSetTxsResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_CompletedSignerSetTxsResponse proto.InternalMessageInfo
+
+func (m *CompletedSignerSetTxsResponse) GetCompletedSignerSetTxs() []*SignerSetTx {
+	if m != nil {
+		return m.CompletedSignerSetTxs
+	}
+	return nil
+}
+
+func (*CompletedSignerSetTxsResponse) XXX_MessageName() string {
+	return "gravity.v1.CompletedSignerSetTxsResponse"
+}
+
+type BatchTxConfirmationsByValidatorRequest struct {
+	ValidatorAddress string `protobuf:"bytes,1,opt,name=validator_address,json=validatorAddress,proto3" json:"validator_address,omitempty"`
+}
+
+func (m *BatchTxConfirmationsByValidatorRequest) Reset() {
+	*m = BatchTxConfirmationsByValidatorRequest{}
+}
+func (m *BatchTxConfirmationsByValidatorRequest) String() string { return proto.CompactTextString(m) }
+func (*BatchTxConfirmationsByValidatorRequest) ProtoMessage()    {}
+func (*BatchTxConfirmationsByValidatorRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_29a9d4192703013c, []int{57}
+}
+func (m *BatchTxConfirmationsByValidatorRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *BatchTxConfirmationsByValidatorRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_BatchTxConfirmationsByValidatorRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *BatchTxConfirmationsByValidatorRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_BatchTxConfirmationsByValidatorRequest.Merge(m, src)
+}
+func (m *BatchTxConfirmationsByValidatorRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *BatchTxConfirmationsByValidatorRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_BatchTxConfirmationsByValidatorRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_BatchTxConfirmationsByValidatorRequest proto.InternalMessageInfo
+
+func (m *BatchTxConfirmationsByValidatorRequest) GetValidatorAddress() string {
+	if m != nil {
+		return m.ValidatorAddress
+	}
+	return ""
+}
+
+func (*BatchTxConfirmationsByValidatorRequest) XXX_MessageName() string {
+	return "gravity.v1.BatchTxConfirmationsByValidatorRequest"
+}
+
+type BatchTxConfirmationsByValidatorResponse struct {
+	BatchTxConfirmations []*BatchTxConfirmation `protobuf:"bytes,1,rep,name=batch_tx_confirmations,json=batchTxConfirmations,proto3" json:"batch_tx_confirmations,omitempty"`
+}
+
+func (m *BatchTxConfirmationsByValidatorResponse) Reset() {
+	*m = BatchTxConfirmationsByValidatorResponse{}
+}
+func (m *BatchTxConfirmationsByValidatorResponse) String() string { return proto.CompactTextString(m) }
+func (*BatchTxConfirmationsByValidatorResponse) ProtoMessage()    {}
+func (*BatchTxConfirmationsByValidatorResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_29a9d4192703013c, []int{58}
+}
+func (m *BatchTxConfirmationsByValidatorResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *BatchTxConfirmationsByValidatorResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_BatchTxConfirmationsByValidatorResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *BatchTxConfirmationsByValidatorResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_BatchTxConfirmationsByValidatorResponse.Merge(m, src)
+}
+func (m *BatchTxConfirmationsByValidatorResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *BatchTxConfirmationsByValidatorResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_BatchTxConfirmationsByValidatorResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_BatchTxConfirmationsByValidatorResponse proto.InternalMessageInfo
+
+func (m *BatchTxConfirmationsByValidatorResponse) GetBatchTxConfirmations() []*BatchTxConfirmation {
+	if m != nil {
+		return m.BatchTxConfirmations
+	}
+	return nil
+}
+
+func (*BatchTxConfirmationsByValidatorResponse) XXX_MessageName() string {
+	return "gravity.v1.BatchTxConfirmationsByValidatorResponse"
+}
+
+type ContractCallTxConfirmationsByValidatorRequest struct {
+	ValidatorAddress string `protobuf:"bytes,1,opt,name=validator_address,json=validatorAddress,proto3" json:"validator_address,omitempty"`
+}
+
+func (m *ContractCallTxConfirmationsByValidatorRequest) Reset() {
+	*m = ContractCallTxConfirmationsByValidatorRequest{}
+}
+func (m *ContractCallTxConfirmationsByValidatorRequest) String() string {
+	return proto.CompactTextString(m)
+}
+func (*ContractCallTxConfirmationsByValidatorRequest) ProtoMessage() {}
+func (*ContractCallTxConfirmationsByValidatorRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_29a9d4192703013c, []int{59}
+}
+func (m *ContractCallTxConfirmationsByValidatorRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *ContractCallTxConfirmationsByValidatorRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_ContractCallTxConfirmationsByValidatorRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *ContractCallTxConfirmationsByValidatorRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ContractCallTxConfirmationsByValidatorRequest.Merge(m, src)
+}
+func (m *ContractCallTxConfirmationsByValidatorRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *ContractCallTxConfirmationsByValidatorRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_ContractCallTxConfirmationsByValidatorRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ContractCallTxConfirmationsByValidatorRequest proto.InternalMessageInfo
+
+func (m *ContractCallTxConfirmationsByValidatorRequest) GetValidatorAddress() string {
+	if m != nil {
+		return m.ValidatorAddress
+	}
+	return ""
+}
+
+func (*ContractCallTxConfirmationsByValidatorRequest) XXX_MessageName() string {
+	return "gravity.v1.ContractCallTxConfirmationsByValidatorRequest"
+}
+
+type ContractCallTxConfirmationsByValidatorResponse struct {
+	ContractCallTxConfirmations []*ContractCallTxConfirmation `protobuf:"bytes,2,rep,name=contract_call_tx_confirmations,json=contractCallTxConfirmations,proto3" json:"contract_call_tx_confirmations,omitempty"`
+}
+
+func (m *ContractCallTxConfirmationsByValidatorResponse) Reset() {
+	*m = ContractCallTxConfirmationsByValidatorResponse{}
+}
+func (m *ContractCallTxConfirmationsByValidatorResponse) String() string {
+	return proto.CompactTextString(m)
+}
+func (*ContractCallTxConfirmationsByValidatorResponse) ProtoMessage() {}
+func (*ContractCallTxConfirmationsByValidatorResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_29a9d4192703013c, []int{60}
+}
+func (m *ContractCallTxConfirmationsByValidatorResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *ContractCallTxConfirmationsByValidatorResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_ContractCallTxConfirmationsByValidatorResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *ContractCallTxConfirmationsByValidatorResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ContractCallTxConfirmationsByValidatorResponse.Merge(m, src)
+}
+func (m *ContractCallTxConfirmationsByValidatorResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *ContractCallTxConfirmationsByValidatorResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_ContractCallTxConfirmationsByValidatorResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ContractCallTxConfirmationsByValidatorResponse proto.InternalMessageInfo
+
+func (m *ContractCallTxConfirmationsByValidatorResponse) GetContractCallTxConfirmations() []*ContractCallTxConfirmation {
+	if m != nil {
+		return m.ContractCallTxConfirmations
+	}
+	return nil
+}
+
+func (*ContractCallTxConfirmationsByValidatorResponse) XXX_MessageName() string {
+	return "gravity.v1.ContractCallTxConfirmationsByValidatorResponse"
+}
+
+type SignerSetTxConfirmationsByValidatorRequest struct {
+	ValidatorAddress string `protobuf:"bytes,1,opt,name=validator_address,json=validatorAddress,proto3" json:"validator_address,omitempty"`
+}
+
+func (m *SignerSetTxConfirmationsByValidatorRequest) Reset() {
+	*m = SignerSetTxConfirmationsByValidatorRequest{}
+}
+func (m *SignerSetTxConfirmationsByValidatorRequest) String() string {
+	return proto.CompactTextString(m)
+}
+func (*SignerSetTxConfirmationsByValidatorRequest) ProtoMessage() {}
+func (*SignerSetTxConfirmationsByValidatorRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_29a9d4192703013c, []int{61}
+}
+func (m *SignerSetTxConfirmationsByValidatorRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *SignerSetTxConfirmationsByValidatorRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_SignerSetTxConfirmationsByValidatorRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *SignerSetTxConfirmationsByValidatorRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_SignerSetTxConfirmationsByValidatorRequest.Merge(m, src)
+}
+func (m *SignerSetTxConfirmationsByValidatorRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *SignerSetTxConfirmationsByValidatorRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_SignerSetTxConfirmationsByValidatorRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_SignerSetTxConfirmationsByValidatorRequest proto.InternalMessageInfo
+
+func (m *SignerSetTxConfirmationsByValidatorRequest) GetValidatorAddress() string {
+	if m != nil {
+		return m.ValidatorAddress
+	}
+	return ""
+}
+
+func (*SignerSetTxConfirmationsByValidatorRequest) XXX_MessageName() string {
+	return "gravity.v1.SignerSetTxConfirmationsByValidatorRequest"
+}
+
+type SignerSetTxConfirmationsByValidatorResponse struct {
+	SignerSetTxConfirmations []*SignerSetTxConfirmation `protobuf:"bytes,3,rep,name=signer_set_tx_confirmations,json=signerSetTxConfirmations,proto3" json:"signer_set_tx_confirmations,omitempty"`
+}
+
+func (m *SignerSetTxConfirmationsByValidatorResponse) Reset() {
+	*m = SignerSetTxConfirmationsByValidatorResponse{}
+}
+func (m *SignerSetTxConfirmationsByValidatorResponse) String() string {
+	return proto.CompactTextString(m)
+}
+func (*SignerSetTxConfirmationsByValidatorResponse) ProtoMessage() {}
+func (*SignerSetTxConfirmationsByValidatorResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_29a9d4192703013c, []int{62}
+}
+func (m *SignerSetTxConfirmationsByValidatorResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *SignerSetTxConfirmationsByValidatorResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_SignerSetTxConfirmationsByValidatorResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *SignerSetTxConfirmationsByValidatorResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_SignerSetTxConfirmationsByValidatorResponse.Merge(m, src)
+}
+func (m *SignerSetTxConfirmationsByValidatorResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *SignerSetTxConfirmationsByValidatorResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_SignerSetTxConfirmationsByValidatorResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_SignerSetTxConfirmationsByValidatorResponse proto.InternalMessageInfo
+
+func (m *SignerSetTxConfirmationsByValidatorResponse) GetSignerSetTxConfirmations() []*SignerSetTxConfirmation {
+	if m != nil {
+		return m.SignerSetTxConfirmations
+	}
+	return nil
+}
+
+func (*SignerSetTxConfirmationsByValidatorResponse) XXX_MessageName() string {
+	return "gravity.v1.SignerSetTxConfirmationsByValidatorResponse"
+}
+
+type EthereumEventVoteRecordsRequest struct {
+	Pagination *query.PageRequest `protobuf:"bytes,1,opt,name=pagination,proto3" json:"pagination,omitempty"`
+}
+
+func (m *EthereumEventVoteRecordsRequest) Reset()         { *m = EthereumEventVoteRecordsRequest{} }
+func (m *EthereumEventVoteRecordsRequest) String() string { return proto.CompactTextString(m) }
+func (*EthereumEventVoteRecordsRequest) ProtoMessage()    {}
+func (*EthereumEventVoteRecordsRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_29a9d4192703013c, []int{63}
+}
+func (m *EthereumEventVoteRecordsRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *EthereumEventVoteRecordsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_EthereumEventVoteRecordsRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *EthereumEventVoteRecordsRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_EthereumEventVoteRecordsRequest.Merge(m, src)
+}
+func (m *EthereumEventVoteRecordsRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *EthereumEventVoteRecordsRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_EthereumEventVoteRecordsRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_EthereumEventVoteRecordsRequest proto.InternalMessageInfo
+
+func (m *EthereumEventVoteRecordsRequest) GetPagination() *query.PageRequest {
+	if m != nil {
+		return m.Pagination
+	}
+	return nil
+}
+
+func (*EthereumEventVoteRecordsRequest) XXX_MessageName() string {
+	return "gravity.v1.EthereumEventVoteRecordsRequest"
+}
+
+type EthereumEventVoteRecordsResponse struct {
+	Records    []*EthereumEventVoteRecord `protobuf:"bytes,1,rep,name=records,proto3" json:"records,omitempty"`
+	Pagination *query.PageResponse        `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
+}
+
+func (m *EthereumEventVoteRecordsResponse) Reset()         { *m = EthereumEventVoteRecordsResponse{} }
+func (m *EthereumEventVoteRecordsResponse) String() string { return proto.CompactTextString(m) }
+func (*EthereumEventVoteRecordsResponse) ProtoMessage()    {}
+func (*EthereumEventVoteRecordsResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_29a9d4192703013c, []int{64}
+}
+func (m *EthereumEventVoteRecordsResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *EthereumEventVoteRecordsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_EthereumEventVoteRecordsResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *EthereumEventVoteRecordsResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_EthereumEventVoteRecordsResponse.Merge(m, src)
+}
+func (m *EthereumEventVoteRecordsResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *EthereumEventVoteRecordsResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_EthereumEventVoteRecordsResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_EthereumEventVoteRecordsResponse proto.InternalMessageInfo
+
+func (m *EthereumEventVoteRecordsResponse) GetRecords() []*EthereumEventVoteRecord {
+	if m != nil {
+		return m.Records
+	}
+	return nil
+}
+
+func (m *EthereumEventVoteRecordsResponse) GetPagination() *query.PageResponse {
+	if m != nil {
+		return m.Pagination
+	}
+	return nil
+}
+
+func (*EthereumEventVoteRecordsResponse) XXX_MessageName() string {
+	return "gravity.v1.EthereumEventVoteRecordsResponse"
+}
+
+type EthereumEventVotesRequest struct {
+	ValidatorAddress string `protobuf:"bytes,1,opt,name=validator_address,json=validatorAddress,proto3" json:"validator_address,omitempty"`
+}
+
+func (m *EthereumEventVotesRequest) Reset()         { *m = EthereumEventVotesRequest{} }
+func (m *EthereumEventVotesRequest) String() string { return proto.CompactTextString(m) }
+func (*EthereumEventVotesRequest) ProtoMessage()    {}
+func (*EthereumEventVotesRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_29a9d4192703013c, []int{65}
+}
+func (m *EthereumEventVotesRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *EthereumEventVotesRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_EthereumEventVotesRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *EthereumEventVotesRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_EthereumEventVotesRequest.Merge(m, src)
+}
+func (m *EthereumEventVotesRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *EthereumEventVotesRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_EthereumEventVotesRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_EthereumEventVotesRequest proto.InternalMessageInfo
+
+func (m *EthereumEventVotesRequest) GetValidatorAddress() string {
+	if m != nil {
+		return m.ValidatorAddress
+	}
+	return ""
+}
+
+func (*EthereumEventVotesRequest) XXX_MessageName() string {
+	return "gravity.v1.EthereumEventVotesRequest"
+}
+
+type EthereumEventVotesResponse struct {
+	Events []*types1.Any `protobuf:"bytes,1,rep,name=events,proto3" json:"events,omitempty"`
+}
+
+func (m *EthereumEventVotesResponse) Reset()         { *m = EthereumEventVotesResponse{} }
+func (m *EthereumEventVotesResponse) String() string { return proto.CompactTextString(m) }
+func (*EthereumEventVotesResponse) ProtoMessage()    {}
+func (*EthereumEventVotesResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_29a9d4192703013c, []int{66}
+}
+func (m *EthereumEventVotesResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *EthereumEventVotesResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_EthereumEventVotesResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *EthereumEventVotesResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_EthereumEventVotesResponse.Merge(m, src)
+}
+func (m *EthereumEventVotesResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *EthereumEventVotesResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_EthereumEventVotesResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_EthereumEventVotesResponse proto.InternalMessageInfo
+
+func (m *EthereumEventVotesResponse) GetEvents() []*types1.Any {
+	if m != nil {
+		return m.Events
+	}
+	return nil
+}
+
+func (*EthereumEventVotesResponse) XXX_MessageName() string {
+	return "gravity.v1.EthereumEventVotesResponse"
+}
 func init() {
 	proto.RegisterType((*ParamsRequest)(nil), "gravity.v1.ParamsRequest")
 	proto.RegisterType((*ParamsResponse)(nil), "gravity.v1.ParamsResponse")
@@ -2440,128 +3417,178 @@ func init() {
 	proto.RegisterType((*UnbatchedSendToEthereumsResponse)(nil), "gravity.v1.UnbatchedSendToEthereumsResponse")
 	proto.RegisterType((*LastObservedEthereumHeightRequest)(nil), "gravity.v1.LastObservedEthereumHeightRequest")
 	proto.RegisterType((*LastObservedEthereumHeightResponse)(nil), "gravity.v1.LastObservedEthereumHeightResponse")
+	proto.RegisterType((*CompletedBatchTxsRequest)(nil), "gravity.v1.CompletedBatchTxsRequest")
+	proto.RegisterType((*CompletedBatchTxsResponse)(nil), "gravity.v1.CompletedBatchTxsResponse")
+	proto.RegisterType((*CompletedContractCallTxsRequest)(nil), "gravity.v1.CompletedContractCallTxsRequest")
+	proto.RegisterType((*CompletedContractCallTxsResponse)(nil), "gravity.v1.CompletedContractCallTxsResponse")
+	proto.RegisterType((*CompletedSignerSetTxsRequest)(nil), "gravity.v1.CompletedSignerSetTxsRequest")
+	proto.RegisterType((*CompletedSignerSetTxsResponse)(nil), "gravity.v1.CompletedSignerSetTxsResponse")
+	proto.RegisterType((*BatchTxConfirmationsByValidatorRequest)(nil), "gravity.v1.BatchTxConfirmationsByValidatorRequest")
+	proto.RegisterType((*BatchTxConfirmationsByValidatorResponse)(nil), "gravity.v1.BatchTxConfirmationsByValidatorResponse")
+	proto.RegisterType((*ContractCallTxConfirmationsByValidatorRequest)(nil), "gravity.v1.ContractCallTxConfirmationsByValidatorRequest")
+	proto.RegisterType((*ContractCallTxConfirmationsByValidatorResponse)(nil), "gravity.v1.ContractCallTxConfirmationsByValidatorResponse")
+	proto.RegisterType((*SignerSetTxConfirmationsByValidatorRequest)(nil), "gravity.v1.SignerSetTxConfirmationsByValidatorRequest")
+	proto.RegisterType((*SignerSetTxConfirmationsByValidatorResponse)(nil), "gravity.v1.SignerSetTxConfirmationsByValidatorResponse")
+	proto.RegisterType((*EthereumEventVoteRecordsRequest)(nil), "gravity.v1.EthereumEventVoteRecordsRequest")
+	proto.RegisterType((*EthereumEventVoteRecordsResponse)(nil), "gravity.v1.EthereumEventVoteRecordsResponse")
+	proto.RegisterType((*EthereumEventVotesRequest)(nil), "gravity.v1.EthereumEventVotesRequest")
+	proto.RegisterType((*EthereumEventVotesResponse)(nil), "gravity.v1.EthereumEventVotesResponse")
 }
 
 func init() { proto.RegisterFile("gravity/v1/query.proto", fileDescriptor_29a9d4192703013c) }
 
 var fileDescriptor_29a9d4192703013c = []byte{
-	// 1842 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xb4, 0x59, 0x49, 0x73, 0xdb, 0xc8,
-	0x15, 0x26, 0x34, 0x96, 0x3d, 0x7a, 0xb2, 0xb6, 0x16, 0x6d, 0xcb, 0x94, 0x4c, 0xda, 0x2d, 0x8f,
-	0xad, 0xb1, 0x22, 0x52, 0x92, 0xab, 0xb2, 0x6f, 0x23, 0xd9, 0x9e, 0xa4, 0x66, 0xbc, 0x84, 0xf4,
-	0x4c, 0xd9, 0xa9, 0xa4, 0x10, 0x90, 0xe8, 0x01, 0x11, 0x91, 0x68, 0x19, 0x00, 0x99, 0x61, 0xaa,
-	0x52, 0x95, 0x4a, 0xaa, 0x72, 0xc8, 0x21, 0x35, 0x87, 0x5c, 0x72, 0xcf, 0x29, 0xd7, 0xfc, 0x89,
-	0x39, 0xce, 0x31, 0xa7, 0x2c, 0xf6, 0x1f, 0x49, 0xa1, 0x17, 0xb0, 0x1b, 0x6c, 0x80, 0xb4, 0xa2,
-	0x9c, 0x6c, 0xbe, 0xe5, 0x7b, 0x0b, 0x5e, 0xbf, 0x7e, 0xaf, 0x05, 0x57, 0xbd, 0xd0, 0x19, 0xfa,
-	0xf1, 0xa8, 0x31, 0x3c, 0x68, 0xbc, 0x1a, 0x90, 0x70, 0x54, 0x3f, 0x0d, 0x69, 0x4c, 0x11, 0x08,
-	0x7a, 0x7d, 0x78, 0x50, 0xb9, 0xd7, 0xa1, 0x51, 0x9f, 0x46, 0x8d, 0xb6, 0x13, 0x11, 0x2e, 0xd4,
-	0x18, 0x1e, 0xb4, 0x49, 0xec, 0x1c, 0x34, 0x4e, 0x1d, 0xcf, 0x0f, 0x9c, 0xd8, 0xa7, 0x01, 0xd7,
-	0xab, 0x54, 0x55, 0x59, 0x29, 0xd5, 0xa1, 0xbe, 0xe4, 0x97, 0x3d, 0xea, 0x51, 0xf6, 0xdf, 0x46,
-	0xf2, 0x3f, 0x41, 0xdd, 0xf2, 0x28, 0xf5, 0x7a, 0xa4, 0xe1, 0x9c, 0xfa, 0x0d, 0x27, 0x08, 0x68,
-	0xcc, 0x20, 0x23, 0xc1, 0xdd, 0x50, 0x7c, 0xf4, 0x48, 0x40, 0x22, 0xdf, 0xc8, 0x11, 0x0e, 0x73,
-	0xce, 0x15, 0x85, 0xd3, 0x8f, 0x3c, 0xa1, 0x80, 0x57, 0x60, 0xe9, 0x99, 0x13, 0x3a, 0xfd, 0xa8,
-	0x49, 0x5e, 0x0d, 0x48, 0x14, 0xe3, 0x23, 0x58, 0x96, 0x84, 0xe8, 0x94, 0x06, 0x11, 0x41, 0xfb,
-	0x70, 0xf1, 0x94, 0x51, 0x36, 0xac, 0x9b, 0xd6, 0xce, 0xe2, 0x21, 0xaa, 0x8f, 0x53, 0x51, 0xe7,
-	0xb2, 0x47, 0x17, 0xbe, 0xfc, 0x67, 0xad, 0xd4, 0x14, 0x72, 0xf8, 0xfb, 0x80, 0x5a, 0xbe, 0x17,
-	0x90, 0xb0, 0x45, 0xe2, 0xe7, 0x9f, 0x0b, 0x64, 0xb4, 0x03, 0xab, 0x11, 0xa3, 0xda, 0x11, 0x89,
-	0xed, 0x80, 0x06, 0x1d, 0xc2, 0x10, 0x2f, 0x34, 0x97, 0x23, 0x29, 0xfd, 0x24, 0xa1, 0xe2, 0x0a,
-	0x6c, 0x7c, 0xec, 0xc4, 0x24, 0x8a, 0x27, 0x51, 0xf0, 0x63, 0x58, 0xd7, 0xa8, 0xc2, 0xc9, 0xaf,
-	0x03, 0x8c, 0xc1, 0x85, 0xa3, 0xd7, 0x54, 0x47, 0x55, 0xa5, 0x85, 0xd4, 0x1e, 0x7e, 0x01, 0xcb,
-	0x47, 0x4e, 0xdc, 0xe9, 0x8e, 0xdd, 0x7c, 0x0f, 0x96, 0x63, 0x7a, 0x42, 0x02, 0xbb, 0x43, 0x83,
-	0x38, 0x74, 0x3a, 0x1c, 0x6d, 0xa1, 0xb9, 0xc4, 0xa8, 0xc7, 0x82, 0x88, 0x6a, 0xb0, 0xd8, 0x4e,
-	0x14, 0x45, 0x20, 0x73, 0x2c, 0x10, 0x60, 0x24, 0x1e, 0xc4, 0x77, 0x61, 0x25, 0x45, 0x16, 0x4e,
-	0xbe, 0x0f, 0xf3, 0x4c, 0x40, 0xf8, 0xb7, 0xae, 0xfa, 0x27, 0x65, 0xb9, 0x04, 0x1e, 0xc0, 0x15,
-	0x69, 0xea, 0xd8, 0xe9, 0xf5, 0xc6, 0xee, 0xed, 0x01, 0xf2, 0x83, 0xa1, 0xd3, 0xf3, 0x5d, 0x56,
-	0x12, 0x76, 0xd4, 0xa1, 0xa7, 0x3c, 0x8f, 0x97, 0x9b, 0x6b, 0x2a, 0xa7, 0x95, 0x30, 0x26, 0xc4,
-	0x55, 0x6f, 0x35, 0x71, 0xee, 0x74, 0x0b, 0xae, 0x66, 0xcd, 0x0a, 0xdf, 0xbf, 0x05, 0xd0, 0xa3,
-	0x9e, 0xdf, 0xb1, 0x3b, 0x4e, 0xaf, 0x27, 0x02, 0xa8, 0xa8, 0x01, 0x64, 0xf4, 0x16, 0x98, 0x74,
-	0xf2, 0x03, 0x7f, 0x04, 0x35, 0x25, 0xfb, 0xc7, 0x34, 0xf8, 0xcc, 0x0f, 0xfb, 0xbc, 0xa0, 0xdf,
-	0xbe, 0x36, 0x3c, 0xb8, 0x99, 0x0f, 0x26, 0x7c, 0x3d, 0xe6, 0xc5, 0xe0, 0xc4, 0x83, 0x90, 0x24,
-	0x55, 0xfb, 0xce, 0xce, 0xe2, 0xe1, 0x76, 0x4e, 0x31, 0xa8, 0x08, 0x4d, 0x45, 0x0d, 0xff, 0x5c,
-	0x2b, 0xb4, 0xd4, 0xd3, 0x47, 0x00, 0xe3, 0x33, 0x2e, 0xf2, 0x70, 0xa7, 0xce, 0x0f, 0x79, 0x3d,
-	0x39, 0xe4, 0x75, 0xde, 0x35, 0xc4, 0x51, 0xaf, 0x3f, 0x73, 0x3c, 0x22, 0x74, 0x9b, 0x8a, 0x26,
-	0xfe, 0x8b, 0x05, 0x65, 0x1d, 0x5f, 0x38, 0xff, 0x4d, 0x58, 0x1c, 0xa7, 0x42, 0x7a, 0x9f, 0x5b,
-	0xca, 0x90, 0xa6, 0x27, 0x42, 0x1f, 0x6a, 0xae, 0xcd, 0x31, 0xd7, 0xee, 0x4e, 0x75, 0x8d, 0x9b,
-	0xd5, 0x7c, 0x7b, 0x99, 0x96, 0xee, 0xb9, 0x87, 0xfd, 0x47, 0x0b, 0x56, 0xc7, 0xd8, 0x22, 0xe4,
-	0x3d, 0xb8, 0xc4, 0xaa, 0x3e, 0xfd, 0x58, 0xc6, 0x93, 0x21, 0x65, 0xce, 0x2f, 0xce, 0x5f, 0x64,
-	0xab, 0xfd, 0xdc, 0xc3, 0xfd, 0xb3, 0x05, 0xd7, 0x26, 0x4c, 0xa4, 0x7d, 0x75, 0x3e, 0x39, 0x4b,
-	0x32, 0xe6, 0xa2, 0xc3, 0xc4, 0x05, 0xcf, 0x2f, 0xf0, 0x6f, 0xc0, 0xe6, 0x27, 0x01, 0xab, 0x1c,
-	0xd7, 0x54, 0xe3, 0x1b, 0x70, 0xc9, 0x71, 0xdd, 0x90, 0x44, 0x91, 0xe8, 0x7d, 0xf2, 0x27, 0x7e,
-	0x01, 0x5b, 0x66, 0xc5, 0xff, 0xb5, 0x78, 0xf1, 0x7d, 0xb8, 0x26, 0x91, 0xb3, 0xb5, 0x97, 0xef,
-	0xce, 0x8f, 0x61, 0x63, 0x52, 0xe9, 0x4c, 0x45, 0x85, 0xbf, 0x0d, 0x55, 0x09, 0x95, 0x53, 0x13,
-	0xf9, 0x6e, 0xb4, 0xa0, 0x96, 0xab, 0x7b, 0xd6, 0x8f, 0x8d, 0xcb, 0x80, 0x84, 0x93, 0x8f, 0x08,
-	0x49, 0xaf, 0xe7, 0x21, 0xac, 0x6b, 0x54, 0x01, 0x6f, 0xc3, 0x85, 0xcf, 0x48, 0x1a, 0xe9, 0x75,
-	0xad, 0x26, 0x64, 0x35, 0x1c, 0x53, 0x3f, 0x38, 0xda, 0x4f, 0x2e, 0xea, 0xbf, 0xfd, 0xab, 0xb6,
-	0xe3, 0xf9, 0x71, 0x77, 0xd0, 0xae, 0x77, 0x68, 0xbf, 0x21, 0x26, 0x14, 0xfe, 0xcf, 0x5e, 0xe4,
-	0x9e, 0x34, 0xe2, 0xd1, 0x29, 0x89, 0x98, 0x42, 0xd4, 0x64, 0xc0, 0xf8, 0x77, 0x16, 0x60, 0xdd,
-	0x4f, 0x63, 0x1f, 0xff, 0xff, 0xde, 0x4e, 0x7d, 0xd8, 0x2e, 0xf4, 0x41, 0x24, 0xe3, 0x91, 0xa1,
-	0xfd, 0xdf, 0xc9, 0x4f, 0x78, 0xee, 0x0d, 0x40, 0x60, 0x53, 0xe4, 0xda, 0x18, 0x6b, 0x66, 0x02,
-	0xb0, 0xb2, 0x13, 0x80, 0x61, 0x92, 0x98, 0x33, 0x4c, 0x12, 0xd8, 0x86, 0x2d, 0xb3, 0x19, 0x11,
-	0xce, 0x0f, 0x0c, 0xe1, 0xd4, 0x0c, 0xb5, 0x9c, 0x1b, 0xc7, 0xf7, 0xe0, 0xd6, 0xc7, 0x4e, 0x14,
-	0xb7, 0x06, 0xed, 0xbe, 0x1f, 0xc7, 0xc4, 0x7d, 0x18, 0x77, 0x49, 0x48, 0x06, 0xfd, 0x87, 0x43,
-	0x12, 0xc4, 0xd3, 0xab, 0xfb, 0x21, 0xe0, 0x22, 0x75, 0xe1, 0x65, 0x0d, 0x16, 0x49, 0x42, 0xd0,
-	0xb3, 0xc1, 0x48, 0xfc, 0xe3, 0xed, 0xc2, 0xfa, 0xc3, 0xe6, 0xf1, 0xe1, 0xfe, 0x73, 0xfa, 0x80,
-	0x04, 0xb4, 0x2f, 0xed, 0x96, 0x61, 0x9e, 0x84, 0x9d, 0xc3, 0x7d, 0x61, 0x95, 0xff, 0xc0, 0x2f,
-	0xa1, 0xac, 0x0b, 0x0b, 0x2b, 0x65, 0x98, 0x77, 0x13, 0x82, 0x94, 0x66, 0x3f, 0xd0, 0x2e, 0xac,
-	0xf1, 0xe2, 0xb5, 0x69, 0xe8, 0xb3, 0x26, 0x47, 0x5c, 0x96, 0xeb, 0x77, 0x9b, 0xab, 0x9c, 0xf1,
-	0x34, 0xa5, 0xe3, 0x03, 0xb8, 0xce, 0x30, 0x9f, 0x53, 0x66, 0x41, 0x9b, 0x7e, 0xcd, 0xf8, 0xf8,
-	0xaf, 0x16, 0x54, 0x4c, 0x3a, 0xc2, 0xa9, 0x1b, 0x00, 0xc9, 0x41, 0xb3, 0x55, 0xcd, 0x85, 0x84,
-	0xc2, 0x74, 0x12, 0x36, 0x0b, 0xca, 0x0e, 0x9c, 0x3e, 0x11, 0x25, 0xb0, 0xc0, 0x28, 0x4f, 0x9c,
-	0x3e, 0x41, 0xb7, 0xe0, 0x32, 0x67, 0x47, 0xa3, 0x7e, 0x9b, 0xf6, 0x36, 0xde, 0x61, 0x02, 0x8b,
-	0x8c, 0xd6, 0x62, 0xa4, 0xa4, 0x90, 0xb8, 0x88, 0x4b, 0x3a, 0x7e, 0xdf, 0xe9, 0x45, 0x1b, 0x17,
-	0x58, 0x7a, 0x97, 0x18, 0xf5, 0x81, 0x20, 0x26, 0x19, 0x56, 0xbd, 0x2c, 0x8e, 0xe9, 0x25, 0x94,
-	0x75, 0xe1, 0x71, 0x86, 0x27, 0xbf, 0xc7, 0xdb, 0x65, 0xf8, 0x31, 0x54, 0x1f, 0x90, 0x1e, 0xf1,
-	0x9c, 0x98, 0x7c, 0x44, 0x46, 0xd1, 0xd1, 0xe8, 0x53, 0x7e, 0x8e, 0x69, 0x28, 0x5d, 0xda, 0x85,
-	0xb5, 0xa1, 0xa4, 0xd9, 0x7a, 0xd9, 0xad, 0xa6, 0x8c, 0x0f, 0x44, 0xfd, 0x0d, 0xa0, 0x96, 0x0b,
-	0xa7, 0x14, 0x5f, 0xdc, 0xcd, 0x20, 0x01, 0x89, 0xbb, 0x02, 0x03, 0x1d, 0x40, 0x99, 0x86, 0x49,
-	0x9f, 0x8f, 0x43, 0xcd, 0x26, 0xff, 0x1a, 0xeb, 0x2a, 0x4f, 0x9a, 0x7d, 0x02, 0xdb, 0xba, 0x59,
-	0x59, 0xf7, 0xfc, 0x06, 0x93, 0xa1, 0xdc, 0x85, 0x15, 0x22, 0x18, 0x36, 0xbf, 0xce, 0x84, 0xf9,
-	0x65, 0xa2, 0xc9, 0xe3, 0x3f, 0x58, 0x70, 0xbb, 0x18, 0x50, 0x04, 0xf3, 0x36, 0xc9, 0x39, 0x4b,
-	0x60, 0x9f, 0xc2, 0x2d, 0xdd, 0x8f, 0xa7, 0x8a, 0x90, 0x0c, 0x2b, 0x0f, 0xd7, 0xca, 0xc7, 0xfd,
-	0x35, 0xe0, 0x22, 0xdc, 0xb3, 0x44, 0x67, 0x48, 0xee, 0x9c, 0x31, 0xb9, 0x57, 0x92, 0xd2, 0x1f,
-	0xdb, 0x96, 0xb7, 0xe5, 0x8b, 0xa4, 0xc8, 0x55, 0xb2, 0x70, 0xe2, 0x87, 0xb0, 0xe4, 0x0a, 0xba,
-	0x7d, 0x42, 0x46, 0xb2, 0xab, 0x6e, 0xaa, 0x5d, 0xf5, 0x71, 0xe4, 0x69, 0xba, 0x97, 0x5d, 0xe5,
-	0x17, 0x7e, 0x04, 0x37, 0x58, 0xdb, 0x25, 0x6e, 0x8b, 0x04, 0xee, 0x73, 0x2a, 0xbf, 0x65, 0xa4,
-	0xac, 0x91, 0x11, 0x09, 0x5c, 0x92, 0x0d, 0x72, 0x89, 0x53, 0x65, 0xd2, 0xba, 0x50, 0xcd, 0xc3,
-	0x49, 0x6f, 0xb3, 0xb5, 0x44, 0xc5, 0x8e, 0xa9, 0x2d, 0x83, 0x36, 0x4e, 0x11, 0xba, 0x7e, 0x73,
-	0x25, 0xd2, 0xf1, 0xf0, 0x17, 0x56, 0x32, 0xa5, 0xb4, 0xcf, 0xc1, 0xe9, 0xcc, 0x74, 0x3c, 0x77,
-	0xe6, 0xe9, 0xf8, 0xef, 0x16, 0xdc, 0xcc, 0x77, 0xe9, 0x7c, 0xe3, 0x3f, 0xbf, 0xe1, 0x79, 0x9b,
-	0x5f, 0xa7, 0x4f, 0xdb, 0x11, 0x09, 0x87, 0xe3, 0xeb, 0xf0, 0x47, 0xc4, 0xf7, 0xba, 0xf2, 0x3a,
-	0xc5, 0x7f, 0xb2, 0xf8, 0xad, 0x99, 0x27, 0x25, 0x82, 0xeb, 0xc2, 0x8d, 0x9e, 0x13, 0xc5, 0x36,
-	0x15, 0x62, 0x69, 0x88, 0x76, 0x97, 0x09, 0x8a, 0xd5, 0xe3, 0x3d, 0x35, 0x50, 0xfe, 0x34, 0x22,
-	0x01, 0x8f, 0x7a, 0xb4, 0x73, 0x22, 0x50, 0x2b, 0xbd, 0x5c, 0x8b, 0x87, 0xff, 0x29, 0xc3, 0xfc,
-	0x4f, 0x92, 0x00, 0xd1, 0x07, 0x70, 0x91, 0x5f, 0x60, 0xe8, 0xfa, 0xe4, 0x4b, 0x8e, 0xf0, 0xbf,
-	0x52, 0x31, 0xb1, 0xb8, 0xd3, 0xb8, 0x84, 0x9e, 0xc1, 0xa2, 0x32, 0xc7, 0xa3, 0x6a, 0xde, 0x80,
-	0x2f, 0xc0, 0x6a, 0xb9, 0xfc, 0x14, 0xf1, 0x67, 0xb0, 0x36, 0xf1, 0xe4, 0x83, 0x6e, 0x4f, 0x86,
-	0x7d, 0x36, 0xf4, 0x07, 0x70, 0x49, 0x0c, 0x49, 0xa8, 0x62, 0xda, 0x02, 0x04, 0xd2, 0xa6, 0x91,
-	0x97, 0xa2, 0xbc, 0x84, 0x65, 0x7d, 0x72, 0x44, 0xb7, 0x0a, 0xc6, 0x78, 0x81, 0x89, 0x8b, 0x44,
-	0x52, 0xe8, 0x16, 0x5c, 0x56, 0xf7, 0x29, 0x94, 0x17, 0x53, 0xfa, 0x7d, 0x6e, 0xe6, 0x0b, 0xa4,
-	0xa0, 0x1f, 0xc2, 0xbb, 0x72, 0x2b, 0x42, 0xa6, 0xd0, 0x52, 0xb0, 0x2d, 0x33, 0x53, 0xf9, 0x38,
-	0x2b, 0x99, 0xbd, 0x06, 0x15, 0x84, 0x95, 0xc2, 0x6e, 0x17, 0xca, 0xa4, 0xe8, 0xbf, 0x82, 0x8d,
-	0xbc, 0x17, 0x1d, 0xb4, 0x3b, 0xc3, 0xab, 0x4d, 0x6a, 0xef, 0x6b, 0xb3, 0x09, 0xa7, 0x86, 0x4f,
-	0xa0, 0x6c, 0x1a, 0xbc, 0xd1, 0xdd, 0x29, 0xc3, 0x75, 0x6a, 0x70, 0x67, 0xba, 0x60, 0x6a, 0xec,
-	0xb7, 0x16, 0x6c, 0x16, 0x2c, 0x2f, 0xa8, 0x3e, 0xdb, 0x82, 0x92, 0xda, 0x6e, 0xcc, 0x2c, 0xaf,
-	0xc6, 0x6b, 0x5a, 0xde, 0xf5, 0x78, 0x0b, 0xde, 0x05, 0xf4, 0x78, 0x8b, 0xde, 0x01, 0x70, 0x09,
-	0xd9, 0xb0, 0x9a, 0x5d, 0xcd, 0xd1, 0xb6, 0x49, 0x3f, 0x5b, 0x8c, 0xb7, 0x8b, 0x85, 0x52, 0x03,
-	0xf1, 0xf8, 0xc1, 0x20, 0x5b, 0x9c, 0xf7, 0x4c, 0x10, 0x39, 0x45, 0xba, 0x3b, 0x93, 0x6c, 0x6a,
-	0xf5, 0x37, 0x50, 0xc9, 0x5f, 0x86, 0xd0, 0x9e, 0xde, 0xb0, 0xa6, 0xec, 0x5c, 0x95, 0xfa, 0xac,
-	0xe2, 0x6a, 0xe3, 0x55, 0xd6, 0x7f, 0xbd, 0xf1, 0x4e, 0xbe, 0x16, 0x54, 0x6a, 0xb9, 0x7c, 0xb5,
-	0xf3, 0xa8, 0x9b, 0x96, 0xde, 0x79, 0x0c, 0x0b, 0x9b, 0xde, 0x79, 0x4c, 0x4b, 0x1a, 0x2e, 0x21,
-	0x02, 0x68, 0x72, 0x5f, 0x42, 0xda, 0x2d, 0x96, 0xbb, 0x83, 0x55, 0xee, 0x4c, 0x13, 0x53, 0x7d,
-	0x57, 0xf9, 0xba, 0xef, 0x86, 0x55, 0x48, 0xf7, 0xdd, 0xb4, 0xfe, 0xe0, 0x12, 0x7a, 0x05, 0x57,
-	0xcd, 0x13, 0x19, 0x7a, 0x7f, 0x22, 0x9b, 0x79, 0x83, 0x54, 0xe5, 0xde, 0x2c, 0xa2, 0x6a, 0x07,
-	0xcc, 0x1b, 0x83, 0x50, 0xa6, 0x3e, 0x0b, 0xe7, 0x37, 0xbd, 0x03, 0x4e, 0x9b, 0xac, 0xf8, 0x19,
-	0xca, 0x59, 0xad, 0xf4, 0x33, 0x54, 0xbc, 0xce, 0xe9, 0x67, 0x68, 0xca, 0xae, 0x86, 0x4b, 0xe8,
-	0xf7, 0x16, 0x6c, 0x15, 0x6d, 0x42, 0xa8, 0x91, 0x8f, 0x67, 0x5c, 0xc2, 0x2a, 0xfb, 0xb3, 0x2b,
-	0xa8, 0x27, 0x39, 0x7f, 0x5d, 0xd1, 0x4f, 0xf2, 0xd4, 0x75, 0x49, 0x3f, 0xc9, 0xd3, 0xb7, 0x20,
-	0x59, 0xbb, 0x63, 0xb9, 0x6c, 0xed, 0x4e, 0xec, 0x32, 0xd9, 0xda, 0x9d, 0xdc, 0x6a, 0xc6, 0xdd,
-	0xc9, 0x3c, 0x02, 0x4e, 0x76, 0xa7, 0xc2, 0x11, 0x76, 0xb2, 0x3b, 0x15, 0xcf, 0xb2, 0xb8, 0x74,
-	0xf4, 0xc9, 0x97, 0xaf, 0xab, 0xd6, 0x57, 0xaf, 0xab, 0xd6, 0xbf, 0x5f, 0x57, 0xad, 0x2f, 0xde,
-	0x54, 0x4b, 0x5f, 0xbd, 0xa9, 0x96, 0xfe, 0xf1, 0xa6, 0x5a, 0xfa, 0xe9, 0x77, 0x94, 0xe7, 0xc6,
-	0x53, 0xe2, 0x79, 0xa3, 0x5f, 0x0e, 0xe5, 0xdf, 0x27, 0xf7, 0xda, 0xa1, 0xef, 0x7a, 0xa4, 0xd1,
-	0xa7, 0xee, 0xa0, 0x47, 0x1a, 0xc3, 0xfb, 0x8d, 0xcf, 0x25, 0x8b, 0xbf, 0x43, 0xb6, 0x2f, 0xb2,
-	0x3f, 0x55, 0xde, 0xff, 0x6f, 0x00, 0x00, 0x00, 0xff, 0xff, 0xb3, 0x3f, 0x6e, 0x95, 0x9b, 0x1d,
-	0x00, 0x00,
+	// 2400 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xb4, 0x59, 0xcd, 0x73, 0x1b, 0x49,
+	0x15, 0xd7, 0x78, 0xf3, 0xb1, 0x79, 0xfe, 0x6e, 0xcb, 0x89, 0x3c, 0x76, 0x24, 0xbb, 0x9d, 0x38,
+	0x4e, 0x8c, 0x35, 0xb6, 0xb3, 0x64, 0xd9, 0x65, 0x17, 0x58, 0x3b, 0x1f, 0xbb, 0xec, 0xe6, 0x03,
+	0x39, 0x49, 0xc5, 0xb0, 0xd4, 0xec, 0x48, 0xea, 0x48, 0xc2, 0xd2, 0x8c, 0xa3, 0x19, 0x89, 0x98,
+	0x94, 0xab, 0x52, 0x4b, 0x2d, 0x07, 0x8a, 0xa2, 0x96, 0x82, 0x03, 0x1c, 0x38, 0x50, 0xc5, 0x81,
+	0xda, 0x2b, 0xfc, 0x11, 0x29, 0x4e, 0x5b, 0xc5, 0x85, 0x13, 0x50, 0x09, 0x7f, 0x08, 0x35, 0x3d,
+	0x3d, 0xa3, 0xee, 0x99, 0xee, 0x91, 0xec, 0x98, 0x93, 0xad, 0xd7, 0xef, 0xe3, 0xf7, 0x7a, 0x5e,
+	0xf7, 0x7b, 0xf3, 0x1b, 0x38, 0x5b, 0x6b, 0x5b, 0xdd, 0x86, 0xb7, 0x6f, 0x74, 0xd7, 0x8d, 0x27,
+	0x1d, 0xd2, 0xde, 0x2f, 0xee, 0xb5, 0x1d, 0xcf, 0x41, 0xc0, 0xe4, 0xc5, 0xee, 0xba, 0x7e, 0xa5,
+	0xe2, 0xb8, 0x2d, 0xc7, 0x35, 0xca, 0x96, 0x4b, 0x02, 0x25, 0xa3, 0xbb, 0x5e, 0x26, 0x9e, 0xb5,
+	0x6e, 0xec, 0x59, 0xb5, 0x86, 0x6d, 0x79, 0x0d, 0xc7, 0x0e, 0xec, 0xf4, 0x3c, 0xaf, 0x1b, 0x6a,
+	0x55, 0x9c, 0x46, 0xb8, 0x3e, 0x13, 0xac, 0x9b, 0xf4, 0x97, 0x11, 0xfc, 0x60, 0x4b, 0xd9, 0x9a,
+	0x53, 0x73, 0x02, 0xb9, 0xff, 0x1f, 0x93, 0xce, 0xd5, 0x1c, 0xa7, 0xd6, 0x24, 0x86, 0xb5, 0xd7,
+	0x30, 0x2c, 0xdb, 0x76, 0x3c, 0x1a, 0x2d, 0xb4, 0x99, 0x61, 0xab, 0xf4, 0x57, 0xb9, 0xf3, 0xd8,
+	0xb0, 0x6c, 0x96, 0x81, 0x9e, 0xe3, 0x32, 0xab, 0x11, 0x9b, 0xb8, 0x0d, 0x57, 0xb6, 0xc2, 0xd2,
+	0x0c, 0x56, 0xa6, 0xb9, 0x95, 0x96, 0x5b, 0x63, 0x06, 0x78, 0x1c, 0x46, 0xef, 0x59, 0x6d, 0xab,
+	0xe5, 0x96, 0xc8, 0x93, 0x0e, 0x71, 0x3d, 0xbc, 0x09, 0x63, 0xa1, 0xc0, 0xdd, 0x73, 0x6c, 0x97,
+	0xa0, 0x35, 0x38, 0xb5, 0x47, 0x25, 0x39, 0x6d, 0x5e, 0x5b, 0x1e, 0xde, 0x40, 0xc5, 0xde, 0x06,
+	0x16, 0x03, 0xdd, 0xcd, 0x13, 0x2f, 0xfe, 0x55, 0xc8, 0x94, 0x98, 0x1e, 0xfe, 0x0e, 0xa0, 0xed,
+	0x46, 0xcd, 0x26, 0xed, 0x6d, 0xe2, 0xdd, 0x7f, 0xca, 0x3c, 0xa3, 0x65, 0x98, 0x70, 0xa9, 0xd4,
+	0x74, 0x89, 0x67, 0xda, 0x8e, 0x5d, 0x21, 0xd4, 0xe3, 0x89, 0xd2, 0x98, 0x1b, 0x6a, 0xdf, 0xf1,
+	0xa5, 0x58, 0x87, 0xdc, 0x27, 0x96, 0x47, 0x5c, 0x2f, 0xe9, 0x05, 0xdf, 0x86, 0x29, 0x41, 0xca,
+	0x40, 0x5e, 0x03, 0xe8, 0x39, 0x67, 0x40, 0xcf, 0xf1, 0x40, 0x79, 0xa3, 0x33, 0x51, 0x3c, 0xfc,
+	0x08, 0xc6, 0x36, 0x2d, 0xaf, 0x52, 0xef, 0xc1, 0xbc, 0x08, 0x63, 0x9e, 0xb3, 0x4b, 0x6c, 0xb3,
+	0xe2, 0xd8, 0x5e, 0xdb, 0xaa, 0x04, 0xde, 0xce, 0x94, 0x46, 0xa9, 0x74, 0x8b, 0x09, 0x51, 0x01,
+	0x86, 0xcb, 0xbe, 0x21, 0x4b, 0x64, 0x88, 0x26, 0x02, 0x54, 0x14, 0x24, 0xf1, 0x1e, 0x8c, 0x47,
+	0x9e, 0x19, 0xc8, 0xcb, 0x70, 0x92, 0x2a, 0x30, 0x7c, 0x53, 0x3c, 0xbe, 0x50, 0x37, 0xd0, 0xc0,
+	0x1d, 0x98, 0x0e, 0x43, 0x6d, 0x59, 0xcd, 0x66, 0x0f, 0xde, 0x2a, 0xa0, 0x86, 0xdd, 0xb5, 0x9a,
+	0x8d, 0x2a, 0xad, 0x16, 0xd3, 0xad, 0x38, 0x7b, 0xc1, 0x3e, 0x8e, 0x94, 0x26, 0xf9, 0x95, 0x6d,
+	0x7f, 0x21, 0xa1, 0xce, 0xa3, 0x15, 0xd4, 0x03, 0xd0, 0xdb, 0x70, 0x36, 0x1e, 0x96, 0x61, 0x7f,
+	0x07, 0xa0, 0xe9, 0xd4, 0x1a, 0x15, 0xb3, 0x62, 0x35, 0x9b, 0x2c, 0x01, 0x9d, 0x4f, 0x20, 0x66,
+	0x77, 0x86, 0x6a, 0xfb, 0x3f, 0xf0, 0xc7, 0x50, 0xe0, 0x76, 0x7f, 0xcb, 0xb1, 0x1f, 0x37, 0xda,
+	0xad, 0xa0, 0xd6, 0x0f, 0x5f, 0x1b, 0x35, 0x98, 0x57, 0x3b, 0x63, 0x58, 0xb7, 0x82, 0x62, 0xb0,
+	0xbc, 0x4e, 0x9b, 0xf8, 0x55, 0xfb, 0xc6, 0xf2, 0xf0, 0xc6, 0xa2, 0xa2, 0x18, 0x78, 0x0f, 0x25,
+	0xce, 0x0c, 0xff, 0x58, 0x28, 0xb4, 0x08, 0xe9, 0x4d, 0x80, 0xde, 0xcd, 0xc0, 0xf6, 0x61, 0xa9,
+	0xc8, 0x4e, 0xbb, 0x7f, 0x35, 0x14, 0x83, 0xbb, 0x86, 0x5d, 0x10, 0xc5, 0x7b, 0x56, 0x8d, 0x30,
+	0xdb, 0x12, 0x67, 0x89, 0xff, 0xa0, 0x41, 0x56, 0xf4, 0xcf, 0xc0, 0x7f, 0x0b, 0x86, 0x7b, 0x5b,
+	0x11, 0xa2, 0x57, 0x96, 0x32, 0x44, 0xdb, 0xe3, 0xa2, 0x5b, 0x02, 0xb4, 0x21, 0x0a, 0xed, 0x52,
+	0x5f, 0x68, 0x41, 0x58, 0x01, 0xdb, 0x4e, 0x54, 0xba, 0xc7, 0x9e, 0xf6, 0x2f, 0x35, 0x98, 0xe8,
+	0xf9, 0x66, 0x29, 0xaf, 0xc2, 0x69, 0x5a, 0xf5, 0xd1, 0xc3, 0x92, 0x9e, 0x8c, 0x50, 0xe7, 0xf8,
+	0xf2, 0xfc, 0x2c, 0x5e, 0xed, 0xc7, 0x9e, 0xee, 0xef, 0x34, 0x38, 0x97, 0x08, 0x11, 0xdd, 0xab,
+	0x27, 0xfd, 0xb3, 0x14, 0xe6, 0x9c, 0x76, 0x98, 0x02, 0xc5, 0xe3, 0x4b, 0xfc, 0x6d, 0x98, 0x7d,
+	0x60, 0xd3, 0xca, 0xa9, 0xca, 0x6a, 0x3c, 0x07, 0xa7, 0xad, 0x6a, 0xb5, 0x4d, 0x5c, 0x97, 0xdd,
+	0x7d, 0xe1, 0x4f, 0xfc, 0x08, 0xe6, 0xe4, 0x86, 0xaf, 0x5b, 0xbc, 0xf8, 0x2a, 0x9c, 0x0b, 0x3d,
+	0xc7, 0x6b, 0x4f, 0x0d, 0xe7, 0x23, 0xc8, 0x25, 0x8d, 0x8e, 0x54, 0x54, 0xf8, 0x5d, 0xc8, 0x87,
+	0xae, 0x14, 0x35, 0xa1, 0x86, 0xb1, 0x0d, 0x05, 0xa5, 0xed, 0x51, 0x1f, 0x36, 0xce, 0x02, 0x62,
+	0x20, 0x6f, 0x12, 0x12, 0xb5, 0xe7, 0x2e, 0x4c, 0x09, 0x52, 0xe6, 0xde, 0x84, 0x13, 0x8f, 0x49,
+	0x94, 0xe9, 0x8c, 0x50, 0x13, 0x61, 0x35, 0x6c, 0x39, 0x0d, 0x7b, 0x73, 0xcd, 0x6f, 0xd4, 0x5f,
+	0xfd, 0xbb, 0xb0, 0x5c, 0x6b, 0x78, 0xf5, 0x4e, 0xb9, 0x58, 0x71, 0x5a, 0x6c, 0x54, 0x61, 0x7f,
+	0x56, 0xdd, 0xea, 0xae, 0xe1, 0xed, 0xef, 0x11, 0x97, 0x1a, 0xb8, 0x25, 0xea, 0x18, 0x7f, 0xae,
+	0x01, 0x16, 0x71, 0x4a, 0xef, 0xf1, 0xff, 0x6f, 0x77, 0x6a, 0xc1, 0x62, 0x2a, 0x06, 0xb6, 0x19,
+	0x37, 0x25, 0xd7, 0xff, 0x92, 0x7a, 0xc3, 0x95, 0x1d, 0x80, 0xc0, 0x2c, 0xdb, 0x6b, 0x69, 0xae,
+	0xb1, 0x09, 0x40, 0x8b, 0x4f, 0x00, 0x92, 0x49, 0x62, 0x48, 0x32, 0x49, 0x60, 0x13, 0xe6, 0xe4,
+	0x61, 0x58, 0x3a, 0xdf, 0x95, 0xa4, 0x53, 0x90, 0xd4, 0xb2, 0x32, 0x8f, 0xf7, 0x61, 0xe1, 0x13,
+	0xcb, 0xf5, 0xb6, 0x3b, 0xe5, 0x56, 0xc3, 0xf3, 0x48, 0xf5, 0x86, 0x57, 0x27, 0x6d, 0xd2, 0x69,
+	0xdd, 0xe8, 0x12, 0xdb, 0xeb, 0x5f, 0xdd, 0x37, 0x00, 0xa7, 0x99, 0x33, 0x94, 0x05, 0x18, 0x26,
+	0xbe, 0x40, 0xdc, 0x0d, 0x2a, 0x0a, 0x1e, 0xde, 0x0a, 0x4c, 0xdd, 0x28, 0x6d, 0x6d, 0xac, 0xdd,
+	0x77, 0xae, 0x13, 0xdb, 0x69, 0x85, 0x71, 0xb3, 0x70, 0x92, 0xb4, 0x2b, 0x1b, 0x6b, 0x2c, 0x6a,
+	0xf0, 0x03, 0xef, 0x40, 0x56, 0x54, 0x66, 0x51, 0xb2, 0x70, 0xb2, 0xea, 0x0b, 0x42, 0x6d, 0xfa,
+	0x03, 0xad, 0xc0, 0x24, 0x9b, 0xbd, 0x9d, 0x76, 0x83, 0x5e, 0x72, 0xa4, 0x4a, 0xf7, 0xfa, 0xcd,
+	0xd2, 0x44, 0xb0, 0x70, 0x37, 0x92, 0xe3, 0x75, 0x98, 0xa1, 0x3e, 0xef, 0x3b, 0x34, 0x82, 0x30,
+	0xfd, 0xca, 0xfd, 0xe3, 0x3f, 0x6b, 0xa0, 0xcb, 0x6c, 0x18, 0xa8, 0xf3, 0x00, 0xfe, 0x41, 0x33,
+	0x79, 0xcb, 0x33, 0xbe, 0x84, 0xda, 0xf8, 0xcb, 0x34, 0x29, 0xd3, 0xb6, 0x5a, 0x84, 0x95, 0xc0,
+	0x19, 0x2a, 0xb9, 0x63, 0xb5, 0x08, 0x5a, 0x80, 0x91, 0x60, 0xd9, 0xdd, 0x6f, 0x95, 0x9d, 0x66,
+	0xee, 0x0d, 0xaa, 0x30, 0x4c, 0x65, 0xdb, 0x54, 0xe4, 0x17, 0x52, 0xa0, 0x52, 0x25, 0x95, 0x46,
+	0xcb, 0x6a, 0xba, 0xb9, 0x13, 0x74, 0x7b, 0x47, 0xa9, 0xf4, 0x3a, 0x13, 0xfa, 0x3b, 0xcc, 0xa3,
+	0x4c, 0xcf, 0x69, 0x07, 0xb2, 0xa2, 0x72, 0x6f, 0x87, 0x93, 0xcf, 0xe3, 0x70, 0x3b, 0x7c, 0x1b,
+	0xf2, 0xd7, 0x49, 0x93, 0xd4, 0x2c, 0x8f, 0x7c, 0x4c, 0xf6, 0xdd, 0xcd, 0xfd, 0x87, 0xc1, 0x39,
+	0x76, 0xda, 0x21, 0xa4, 0x15, 0x98, 0xec, 0x86, 0x32, 0x53, 0x2c, 0xbb, 0x89, 0x68, 0xe1, 0x03,
+	0x56, 0x7f, 0x1d, 0x28, 0x28, 0xdd, 0x71, 0xc5, 0xe7, 0xd5, 0x63, 0x9e, 0x80, 0x78, 0x75, 0xe6,
+	0x03, 0xad, 0x43, 0xd6, 0x69, 0xfb, 0xf7, 0xbc, 0xd7, 0x16, 0x62, 0x06, 0x4f, 0x63, 0x8a, 0x5f,
+	0x0b, 0xc3, 0xde, 0x81, 0x45, 0x31, 0x6c, 0x58, 0xf7, 0x41, 0x07, 0x0b, 0x53, 0xb9, 0x04, 0xe3,
+	0x84, 0x2d, 0x98, 0x41, 0x3b, 0x63, 0xe1, 0xc7, 0x88, 0xa0, 0x8f, 0x7f, 0xa1, 0xc1, 0x85, 0x74,
+	0x87, 0x2c, 0x99, 0xc3, 0x6c, 0xce, 0x51, 0x12, 0x7b, 0x08, 0x0b, 0x22, 0x8e, 0xbb, 0x9c, 0x52,
+	0x98, 0x96, 0xca, 0xaf, 0xa6, 0xf6, 0xfb, 0x33, 0xc0, 0x69, 0x7e, 0x8f, 0x92, 0x9d, 0x64, 0x73,
+	0x87, 0xa4, 0x9b, 0x3b, 0xed, 0x97, 0x7e, 0x2f, 0x76, 0xd8, 0x2d, 0x1f, 0xf9, 0x45, 0xce, 0x8b,
+	0x19, 0x88, 0xef, 0xc1, 0x68, 0x95, 0xc9, 0xcd, 0x5d, 0xb2, 0x1f, 0xde, 0xaa, 0xb3, 0xfc, 0xad,
+	0x7a, 0xdb, 0xad, 0x09, 0xb6, 0x23, 0x55, 0xee, 0x17, 0xbe, 0x09, 0xe7, 0xe9, 0xb5, 0x4b, 0xaa,
+	0xdb, 0xc4, 0xae, 0xde, 0x77, 0xc2, 0x67, 0xe9, 0x72, 0xaf, 0x91, 0x2e, 0xb1, 0xab, 0x24, 0x9e,
+	0xe4, 0x68, 0x20, 0x0d, 0x37, 0xad, 0x0e, 0x79, 0x95, 0x9f, 0xa8, 0x9b, 0x4d, 0xfa, 0x26, 0xa6,
+	0xe7, 0x98, 0x61, 0xd2, 0xd2, 0x29, 0x42, 0xb4, 0x2f, 0x8d, 0xbb, 0xa2, 0x3f, 0xfc, 0xa5, 0xe6,
+	0x4f, 0x29, 0xe5, 0x63, 0x00, 0x1d, 0x9b, 0x8e, 0x87, 0x8e, 0x3c, 0x1d, 0xff, 0x55, 0x83, 0x79,
+	0x35, 0xa4, 0xe3, 0xcd, 0xff, 0xf8, 0x86, 0xe7, 0xc5, 0xa0, 0x9d, 0xde, 0x2d, 0xbb, 0xa4, 0xdd,
+	0xed, 0xb5, 0xc3, 0x0f, 0x49, 0xa3, 0x56, 0x0f, 0xdb, 0x29, 0xfe, 0xb5, 0x16, 0x74, 0x4d, 0x95,
+	0x16, 0x4b, 0xae, 0x0e, 0xe7, 0x9b, 0x96, 0xeb, 0x99, 0x0e, 0x53, 0x8b, 0x52, 0x34, 0xeb, 0x54,
+	0x91, 0xbd, 0x7a, 0x5c, 0xe4, 0x13, 0x0d, 0xa8, 0x91, 0xd0, 0xe1, 0x66, 0xd3, 0xa9, 0xec, 0x32,
+	0xaf, 0x7a, 0x53, 0x19, 0x11, 0xeb, 0x90, 0xdb, 0x72, 0x5a, 0x7b, 0x4d, 0xe2, 0x25, 0x06, 0x6c,
+	0xfc, 0x19, 0xcc, 0x48, 0xd6, 0xa2, 0x97, 0xe9, 0xa9, 0x4a, 0xb8, 0x68, 0x06, 0x03, 0x8f, 0xf7,
+	0x34, 0x75, 0xa6, 0x9e, 0xac, 0xc4, 0x9d, 0xe1, 0x05, 0x28, 0x44, 0x11, 0xe4, 0xe3, 0x35, 0x3e,
+	0x80, 0x79, 0xb5, 0x0a, 0xc3, 0xb2, 0x03, 0xb3, 0x3d, 0x2c, 0xe1, 0x54, 0x45, 0x19, 0x09, 0x0e,
+	0x53, 0xda, 0x6c, 0x9d, 0xab, 0x28, 0x42, 0xe0, 0x3c, 0xcc, 0x45, 0xe1, 0x25, 0xef, 0x44, 0xf8,
+	0x09, 0x9c, 0x57, 0xac, 0x33, 0x6c, 0xf7, 0xa0, 0xe7, 0xdc, 0xe4, 0xc8, 0x8c, 0x1e, 0x30, 0xe5,
+	0x7b, 0xd0, 0x74, 0x45, 0xe6, 0x19, 0x3f, 0x80, 0x25, 0xd9, 0x60, 0xf8, 0xba, 0xfd, 0xf4, 0xb9,
+	0x06, 0x97, 0xfa, 0xfa, 0x65, 0x49, 0x3d, 0x80, 0xb3, 0xe1, 0x23, 0xf7, 0xf7, 0xbb, 0xa7, 0x3c,
+	0xe8, 0x1c, 0x9a, 0x2d, 0x4b, 0x22, 0xe1, 0x4f, 0x61, 0x35, 0x65, 0x90, 0x7f, 0xdd, 0x04, 0xff,
+	0xa8, 0x41, 0x71, 0x50, 0xf7, 0x2c, 0xcf, 0x5d, 0xc8, 0xc7, 0xcb, 0x29, 0x96, 0xef, 0xd0, 0xa1,
+	0x5e, 0x23, 0x66, 0x2b, 0xea, 0xf8, 0x78, 0x07, 0xae, 0xa8, 0x28, 0xac, 0xd7, 0x4d, 0xfd, 0x37,
+	0x1a, 0xac, 0x0c, 0xe4, 0x9b, 0xe5, 0x5d, 0x86, 0x59, 0xa1, 0x54, 0x63, 0x49, 0xbf, 0x31, 0x38,
+	0x75, 0x96, 0x73, 0x15, 0x61, 0x71, 0x03, 0x0a, 0xc2, 0x2b, 0xc3, 0x43, 0xc7, 0x23, 0x25, 0x52,
+	0x71, 0xda, 0xd5, 0x63, 0xa7, 0x5b, 0xbe, 0xd2, 0x60, 0x5e, 0x1d, 0x8b, 0xe5, 0xfc, 0x3e, 0x9c,
+	0x6e, 0x07, 0x22, 0x19, 0x35, 0xa8, 0x30, 0x2f, 0x85, 0x36, 0xc7, 0xd7, 0x47, 0x3e, 0x84, 0x99,
+	0x44, 0x30, 0xf7, 0x48, 0x4f, 0xbd, 0x0e, 0xba, 0xcc, 0x13, 0xcb, 0xf7, 0xfb, 0x70, 0x8a, 0xbe,
+	0x86, 0x85, 0xe9, 0x66, 0x8b, 0xc1, 0x97, 0x85, 0x62, 0xf8, 0x65, 0xa1, 0xf8, 0x81, 0xbd, 0xbf,
+	0x39, 0xf7, 0xf7, 0xbf, 0xad, 0xe6, 0x54, 0xfb, 0x50, 0x62, 0x1e, 0x36, 0xbe, 0x28, 0xc0, 0xc9,
+	0x1f, 0xf8, 0xe9, 0xa1, 0x1f, 0xc1, 0xa9, 0xe0, 0x35, 0x08, 0xcd, 0x24, 0xbf, 0x07, 0xb0, 0x2c,
+	0x74, 0x5d, 0xb6, 0x14, 0xc0, 0xc2, 0xfa, 0xe7, 0xff, 0xf8, 0xef, 0x6f, 0x87, 0xb2, 0x08, 0x19,
+	0xdc, 0x97, 0x89, 0xe0, 0x03, 0x02, 0xfa, 0x42, 0x83, 0x61, 0xae, 0xd0, 0x50, 0x5e, 0x75, 0x73,
+	0xb2, 0x38, 0x05, 0xe5, 0x3a, 0x0b, 0xf6, 0x4d, 0x1a, 0xcc, 0x40, 0xab, 0x7c, 0x30, 0xf1, 0x92,
+	0x36, 0x9e, 0xc5, 0x19, 0xe8, 0x03, 0x1f, 0xc7, 0x64, 0xe2, 0x4b, 0x04, 0xba, 0x90, 0xec, 0xc6,
+	0x47, 0xc1, 0x74, 0x99, 0x62, 0x5a, 0x44, 0x0b, 0x29, 0x98, 0x9a, 0xd4, 0x3b, 0x7a, 0xae, 0xc1,
+	0x69, 0x76, 0xbb, 0x22, 0x5d, 0xd6, 0x72, 0x59, 0xcc, 0x59, 0xe9, 0x1a, 0x8b, 0xf7, 0x1e, 0x8d,
+	0x77, 0x0d, 0xbd, 0xc5, 0xc7, 0x8b, 0x1a, 0xba, 0xf1, 0x4c, 0xe4, 0x2a, 0x0e, 0x8c, 0x67, 0x1c,
+	0xbb, 0x71, 0x80, 0xfe, 0xa2, 0xc1, 0x98, 0x78, 0xe1, 0xa1, 0x85, 0x94, 0x46, 0xcb, 0x00, 0xe1,
+	0x34, 0x15, 0x86, 0xeb, 0x2e, 0xc5, 0xf5, 0x11, 0xba, 0xc5, 0xe3, 0x4a, 0x34, 0x77, 0xe3, 0x59,
+	0x92, 0x58, 0x3a, 0x88, 0x09, 0x19, 0xd4, 0x0e, 0x8c, 0xf0, 0x7d, 0x14, 0xa9, 0x9e, 0x44, 0x54,
+	0xa6, 0xf3, 0x6a, 0x05, 0x86, 0x11, 0x53, 0x8c, 0x73, 0x48, 0x57, 0x3f, 0x2b, 0x74, 0x0b, 0xde,
+	0x0c, 0xe7, 0x1d, 0x24, 0x7b, 0x10, 0x51, 0xb8, 0x39, 0xf9, 0x22, 0x0b, 0x95, 0x41, 0x9f, 0xc2,
+	0x78, 0x6c, 0x3a, 0x41, 0x29, 0xfb, 0x18, 0xb9, 0x5d, 0x4c, 0xd5, 0x89, 0xbc, 0xff, 0x14, 0x72,
+	0xaa, 0x0e, 0x81, 0x56, 0x06, 0xb8, 0xe9, 0xa3, 0x78, 0xdf, 0x18, 0x4c, 0x39, 0x0a, 0xbc, 0x0b,
+	0x59, 0xd9, 0xd8, 0x81, 0x2e, 0xf5, 0x99, 0x21, 0xa2, 0x80, 0xcb, 0xfd, 0x15, 0xa3, 0x60, 0xcf,
+	0x35, 0x98, 0x4d, 0x99, 0x01, 0x50, 0x71, 0xb0, 0x46, 0x1e, 0xc5, 0x36, 0x06, 0xd6, 0xe7, 0xf3,
+	0x95, 0x71, 0xe5, 0x62, 0xbe, 0x29, 0x34, 0xbc, 0x98, 0x6f, 0x1a, 0xed, 0x8e, 0x33, 0xc8, 0x84,
+	0x89, 0x38, 0x13, 0x8e, 0x16, 0x65, 0xf6, 0xf1, 0x62, 0xbc, 0x90, 0xae, 0x14, 0x05, 0xf0, 0x7a,
+	0xfc, 0x7c, 0xbc, 0x38, 0xaf, 0xc8, 0x5c, 0x28, 0x8a, 0x74, 0x65, 0x20, 0xdd, 0x28, 0xea, 0x01,
+	0xe8, 0x6a, 0xee, 0x11, 0xad, 0x8a, 0x17, 0x71, 0x1f, 0x8a, 0x53, 0x2f, 0x0e, 0xaa, 0x1e, 0x85,
+	0xbf, 0x07, 0xc3, 0x1c, 0xdb, 0x2e, 0xb6, 0xa1, 0x24, 0x39, 0xaf, 0x17, 0x94, 0xeb, 0x91, 0xc7,
+	0x6d, 0x18, 0xe1, 0x89, 0x4d, 0xf1, 0x6e, 0x92, 0xf0, 0xa3, 0xe2, 0xdd, 0x24, 0xe3, 0x44, 0x71,
+	0x06, 0x11, 0x40, 0x49, 0x7a, 0x12, 0x09, 0x2f, 0x8d, 0x4a, 0xca, 0x53, 0x5f, 0xea, 0xa7, 0xc6,
+	0x63, 0xe7, 0xd7, 0x45, 0xec, 0x12, 0xe6, 0x51, 0xc4, 0x2e, 0x63, 0x1b, 0x71, 0x06, 0x3d, 0x81,
+	0xb3, 0x72, 0x02, 0x04, 0x5d, 0x4e, 0xec, 0xa6, 0x8a, 0xb7, 0xd0, 0xaf, 0x0c, 0xa2, 0xca, 0xdf,
+	0x80, 0x2a, 0xd6, 0x01, 0xc5, 0xea, 0x33, 0x95, 0x2e, 0x11, 0x6f, 0xc0, 0x7e, 0x44, 0x46, 0x70,
+	0x86, 0x14, 0x4c, 0xa6, 0x78, 0x86, 0xd2, 0xd9, 0x53, 0xf1, 0x0c, 0xf5, 0xa1, 0x46, 0x71, 0x06,
+	0xfd, 0x5c, 0x83, 0xb9, 0x34, 0xe2, 0x11, 0x19, 0x6a, 0x7f, 0x52, 0xce, 0x53, 0x5f, 0x1b, 0xdc,
+	0x80, 0x3f, 0xc9, 0x6a, 0x76, 0x50, 0x3c, 0xc9, 0x7d, 0xd9, 0x49, 0xf1, 0x24, 0xf7, 0x27, 0x1d,
+	0xc3, 0xda, 0xed, 0xe9, 0xc5, 0x6b, 0x37, 0x41, 0x1d, 0xc6, 0x6b, 0x37, 0x49, 0x22, 0xf6, 0x6e,
+	0x27, 0x39, 0xe3, 0x92, 0xbc, 0x9d, 0x52, 0x19, 0xa3, 0xe4, 0xed, 0x94, 0x4e, 0x1d, 0xe1, 0x0c,
+	0xb2, 0x61, 0x5a, 0x4a, 0x49, 0xa0, 0x65, 0xb1, 0x59, 0xa9, 0x59, 0x0d, 0xfd, 0xf2, 0x00, 0x9a,
+	0x51, 0xbc, 0x32, 0x4c, 0x26, 0x68, 0x22, 0x71, 0x18, 0x56, 0x31, 0x4c, 0xfa, 0xc5, 0x3e, 0x5a,
+	0xfc, 0xd9, 0x54, 0xb1, 0x40, 0xe2, 0xd9, 0xec, 0x43, 0x27, 0x89, 0x67, 0xb3, 0x1f, 0xb1, 0x84,
+	0x33, 0xe8, 0x57, 0x1a, 0x14, 0xfa, 0xb0, 0x22, 0x68, 0xa3, 0xdf, 0x00, 0x22, 0x39, 0xac, 0x57,
+	0x0f, 0x65, 0x13, 0xc1, 0xf9, 0x93, 0x06, 0x4b, 0x83, 0x71, 0x18, 0xe8, 0x9d, 0x01, 0x47, 0x13,
+	0x09, 0xb8, 0x77, 0x8f, 0x62, 0x1a, 0x61, 0xfc, 0xbd, 0x06, 0x8b, 0x03, 0x90, 0x0d, 0xe8, 0xda,
+	0x20, 0x83, 0xa2, 0x04, 0xdd, 0xdb, 0x87, 0xb6, 0xe3, 0xcb, 0x48, 0xc5, 0x03, 0x88, 0x65, 0xd4,
+	0x87, 0x99, 0x10, 0xcb, 0xa8, 0x1f, 0xb5, 0x10, 0xb4, 0xe2, 0xe4, 0xab, 0xb8, 0xd8, 0x8a, 0x95,
+	0x2f, 0xfd, 0x62, 0x2b, 0x56, 0xbf, 0xd1, 0xe3, 0xcc, 0xe6, 0xce, 0x8b, 0x97, 0x79, 0xed, 0xeb,
+	0x97, 0x79, 0xed, 0x3f, 0x2f, 0xf3, 0xda, 0x97, 0xaf, 0xf2, 0x99, 0x17, 0xaf, 0xf2, 0xda, 0xd7,
+	0xaf, 0xf2, 0x99, 0x7f, 0xbe, 0xca, 0x67, 0x7e, 0xf8, 0x6d, 0xee, 0xe3, 0xfe, 0x1e, 0xa9, 0xd5,
+	0xf6, 0x7f, 0xd2, 0x0d, 0xdf, 0x5b, 0x56, 0xcb, 0xed, 0x46, 0xb5, 0x46, 0x8c, 0x96, 0x53, 0xed,
+	0x34, 0x89, 0xd1, 0x7d, 0xcb, 0x78, 0x1a, 0xbd, 0xd2, 0xd0, 0xaf, 0xfe, 0xe5, 0x53, 0x94, 0x16,
+	0xb8, 0xfa, 0xbf, 0x00, 0x00, 0x00, 0xff, 0xff, 0x32, 0x24, 0x8e, 0xcf, 0x3f, 0x29, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -2618,6 +3645,14 @@ type QueryClient interface {
 	DelegateKeysByOrchestrator(ctx context.Context, in *DelegateKeysByOrchestratorRequest, opts ...grpc.CallOption) (*DelegateKeysByOrchestratorResponse, error)
 	DelegateKeys(ctx context.Context, in *DelegateKeysRequest, opts ...grpc.CallOption) (*DelegateKeysResponse, error)
 	LastObservedEthereumHeight(ctx context.Context, in *LastObservedEthereumHeightRequest, opts ...grpc.CallOption) (*LastObservedEthereumHeightResponse, error)
+	CompletedSignerSetTxs(ctx context.Context, in *CompletedSignerSetTxsRequest, opts ...grpc.CallOption) (*CompletedSignerSetTxsResponse, error)
+	CompletedBatchTxs(ctx context.Context, in *CompletedBatchTxsRequest, opts ...grpc.CallOption) (*CompletedBatchTxsResponse, error)
+	CompletedContractCallTxs(ctx context.Context, in *CompletedContractCallTxsRequest, opts ...grpc.CallOption) (*CompletedContractCallTxsResponse, error)
+	BatchTxConfirmationsByValidator(ctx context.Context, in *BatchTxConfirmationsByValidatorRequest, opts ...grpc.CallOption) (*BatchTxConfirmationsByValidatorResponse, error)
+	ContractCallTxConfirmationsByValidator(ctx context.Context, in *ContractCallTxConfirmationsByValidatorRequest, opts ...grpc.CallOption) (*ContractCallTxConfirmationsByValidatorResponse, error)
+	SignerSetTxConfirmationsByValidator(ctx context.Context, in *SignerSetTxConfirmationsByValidatorRequest, opts ...grpc.CallOption) (*SignerSetTxConfirmationsByValidatorResponse, error)
+	EthereumEventVoteRecords(ctx context.Context, in *EthereumEventVoteRecordsRequest, opts ...grpc.CallOption) (*EthereumEventVoteRecordsResponse, error)
+	EthereumEventVotes(ctx context.Context, in *EthereumEventVotesRequest, opts ...grpc.CallOption) (*EthereumEventVotesResponse, error)
 }
 
 type queryClient struct {
@@ -2862,6 +3897,78 @@ func (c *queryClient) LastObservedEthereumHeight(ctx context.Context, in *LastOb
 	return out, nil
 }
 
+func (c *queryClient) CompletedSignerSetTxs(ctx context.Context, in *CompletedSignerSetTxsRequest, opts ...grpc.CallOption) (*CompletedSignerSetTxsResponse, error) {
+	out := new(CompletedSignerSetTxsResponse)
+	err := c.cc.Invoke(ctx, "/gravity.v1.Query/CompletedSignerSetTxs", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) CompletedBatchTxs(ctx context.Context, in *CompletedBatchTxsRequest, opts ...grpc.CallOption) (*CompletedBatchTxsResponse, error) {
+	out := new(CompletedBatchTxsResponse)
+	err := c.cc.Invoke(ctx, "/gravity.v1.Query/CompletedBatchTxs", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) CompletedContractCallTxs(ctx context.Context, in *CompletedContractCallTxsRequest, opts ...grpc.CallOption) (*CompletedContractCallTxsResponse, error) {
+	out := new(CompletedContractCallTxsResponse)
+	err := c.cc.Invoke(ctx, "/gravity.v1.Query/CompletedContractCallTxs", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) BatchTxConfirmationsByValidator(ctx context.Context, in *BatchTxConfirmationsByValidatorRequest, opts ...grpc.CallOption) (*BatchTxConfirmationsByValidatorResponse, error) {
+	out := new(BatchTxConfirmationsByValidatorResponse)
+	err := c.cc.Invoke(ctx, "/gravity.v1.Query/BatchTxConfirmationsByValidator", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) ContractCallTxConfirmationsByValidator(ctx context.Context, in *ContractCallTxConfirmationsByValidatorRequest, opts ...grpc.CallOption) (*ContractCallTxConfirmationsByValidatorResponse, error) {
+	out := new(ContractCallTxConfirmationsByValidatorResponse)
+	err := c.cc.Invoke(ctx, "/gravity.v1.Query/ContractCallTxConfirmationsByValidator", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) SignerSetTxConfirmationsByValidator(ctx context.Context, in *SignerSetTxConfirmationsByValidatorRequest, opts ...grpc.CallOption) (*SignerSetTxConfirmationsByValidatorResponse, error) {
+	out := new(SignerSetTxConfirmationsByValidatorResponse)
+	err := c.cc.Invoke(ctx, "/gravity.v1.Query/SignerSetTxConfirmationsByValidator", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) EthereumEventVoteRecords(ctx context.Context, in *EthereumEventVoteRecordsRequest, opts ...grpc.CallOption) (*EthereumEventVoteRecordsResponse, error) {
+	out := new(EthereumEventVoteRecordsResponse)
+	err := c.cc.Invoke(ctx, "/gravity.v1.Query/EthereumEventVoteRecords", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) EthereumEventVotes(ctx context.Context, in *EthereumEventVotesRequest, opts ...grpc.CallOption) (*EthereumEventVotesResponse, error) {
+	out := new(EthereumEventVotesResponse)
+	err := c.cc.Invoke(ctx, "/gravity.v1.Query/EthereumEventVotes", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QueryServer is the server API for Query service.
 type QueryServer interface {
 	// Module parameters query
@@ -2906,6 +4013,14 @@ type QueryServer interface {
 	DelegateKeysByOrchestrator(context.Context, *DelegateKeysByOrchestratorRequest) (*DelegateKeysByOrchestratorResponse, error)
 	DelegateKeys(context.Context, *DelegateKeysRequest) (*DelegateKeysResponse, error)
 	LastObservedEthereumHeight(context.Context, *LastObservedEthereumHeightRequest) (*LastObservedEthereumHeightResponse, error)
+	CompletedSignerSetTxs(context.Context, *CompletedSignerSetTxsRequest) (*CompletedSignerSetTxsResponse, error)
+	CompletedBatchTxs(context.Context, *CompletedBatchTxsRequest) (*CompletedBatchTxsResponse, error)
+	CompletedContractCallTxs(context.Context, *CompletedContractCallTxsRequest) (*CompletedContractCallTxsResponse, error)
+	BatchTxConfirmationsByValidator(context.Context, *BatchTxConfirmationsByValidatorRequest) (*BatchTxConfirmationsByValidatorResponse, error)
+	ContractCallTxConfirmationsByValidator(context.Context, *ContractCallTxConfirmationsByValidatorRequest) (*ContractCallTxConfirmationsByValidatorResponse, error)
+	SignerSetTxConfirmationsByValidator(context.Context, *SignerSetTxConfirmationsByValidatorRequest) (*SignerSetTxConfirmationsByValidatorResponse, error)
+	EthereumEventVoteRecords(context.Context, *EthereumEventVoteRecordsRequest) (*EthereumEventVoteRecordsResponse, error)
+	EthereumEventVotes(context.Context, *EthereumEventVotesRequest) (*EthereumEventVotesResponse, error)
 }
 
 // UnimplementedQueryServer can be embedded to have forward compatible implementations.
@@ -2989,6 +4104,30 @@ func (*UnimplementedQueryServer) DelegateKeys(ctx context.Context, req *Delegate
 }
 func (*UnimplementedQueryServer) LastObservedEthereumHeight(ctx context.Context, req *LastObservedEthereumHeightRequest) (*LastObservedEthereumHeightResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method LastObservedEthereumHeight not implemented")
+}
+func (*UnimplementedQueryServer) CompletedSignerSetTxs(ctx context.Context, req *CompletedSignerSetTxsRequest) (*CompletedSignerSetTxsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CompletedSignerSetTxs not implemented")
+}
+func (*UnimplementedQueryServer) CompletedBatchTxs(ctx context.Context, req *CompletedBatchTxsRequest) (*CompletedBatchTxsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CompletedBatchTxs not implemented")
+}
+func (*UnimplementedQueryServer) CompletedContractCallTxs(ctx context.Context, req *CompletedContractCallTxsRequest) (*CompletedContractCallTxsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CompletedContractCallTxs not implemented")
+}
+func (*UnimplementedQueryServer) BatchTxConfirmationsByValidator(ctx context.Context, req *BatchTxConfirmationsByValidatorRequest) (*BatchTxConfirmationsByValidatorResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method BatchTxConfirmationsByValidator not implemented")
+}
+func (*UnimplementedQueryServer) ContractCallTxConfirmationsByValidator(ctx context.Context, req *ContractCallTxConfirmationsByValidatorRequest) (*ContractCallTxConfirmationsByValidatorResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ContractCallTxConfirmationsByValidator not implemented")
+}
+func (*UnimplementedQueryServer) SignerSetTxConfirmationsByValidator(ctx context.Context, req *SignerSetTxConfirmationsByValidatorRequest) (*SignerSetTxConfirmationsByValidatorResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SignerSetTxConfirmationsByValidator not implemented")
+}
+func (*UnimplementedQueryServer) EthereumEventVoteRecords(ctx context.Context, req *EthereumEventVoteRecordsRequest) (*EthereumEventVoteRecordsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EthereumEventVoteRecords not implemented")
+}
+func (*UnimplementedQueryServer) EthereumEventVotes(ctx context.Context, req *EthereumEventVotesRequest) (*EthereumEventVotesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EthereumEventVotes not implemented")
 }
 
 func RegisterQueryServer(s grpc1.Server, srv QueryServer) {
@@ -3463,6 +4602,150 @@ func _Query_LastObservedEthereumHeight_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Query_CompletedSignerSetTxs_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CompletedSignerSetTxsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).CompletedSignerSetTxs(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/gravity.v1.Query/CompletedSignerSetTxs",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).CompletedSignerSetTxs(ctx, req.(*CompletedSignerSetTxsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_CompletedBatchTxs_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CompletedBatchTxsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).CompletedBatchTxs(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/gravity.v1.Query/CompletedBatchTxs",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).CompletedBatchTxs(ctx, req.(*CompletedBatchTxsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_CompletedContractCallTxs_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CompletedContractCallTxsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).CompletedContractCallTxs(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/gravity.v1.Query/CompletedContractCallTxs",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).CompletedContractCallTxs(ctx, req.(*CompletedContractCallTxsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_BatchTxConfirmationsByValidator_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(BatchTxConfirmationsByValidatorRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).BatchTxConfirmationsByValidator(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/gravity.v1.Query/BatchTxConfirmationsByValidator",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).BatchTxConfirmationsByValidator(ctx, req.(*BatchTxConfirmationsByValidatorRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_ContractCallTxConfirmationsByValidator_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ContractCallTxConfirmationsByValidatorRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).ContractCallTxConfirmationsByValidator(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/gravity.v1.Query/ContractCallTxConfirmationsByValidator",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).ContractCallTxConfirmationsByValidator(ctx, req.(*ContractCallTxConfirmationsByValidatorRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_SignerSetTxConfirmationsByValidator_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SignerSetTxConfirmationsByValidatorRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).SignerSetTxConfirmationsByValidator(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/gravity.v1.Query/SignerSetTxConfirmationsByValidator",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).SignerSetTxConfirmationsByValidator(ctx, req.(*SignerSetTxConfirmationsByValidatorRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_EthereumEventVoteRecords_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(EthereumEventVoteRecordsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).EthereumEventVoteRecords(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/gravity.v1.Query/EthereumEventVoteRecords",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).EthereumEventVoteRecords(ctx, req.(*EthereumEventVoteRecordsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_EthereumEventVotes_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(EthereumEventVotesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).EthereumEventVotes(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/gravity.v1.Query/EthereumEventVotes",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).EthereumEventVotes(ctx, req.(*EthereumEventVotesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Query_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "gravity.v1.Query",
 	HandlerType: (*QueryServer)(nil),
@@ -3570,6 +4853,38 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "LastObservedEthereumHeight",
 			Handler:    _Query_LastObservedEthereumHeight_Handler,
+		},
+		{
+			MethodName: "CompletedSignerSetTxs",
+			Handler:    _Query_CompletedSignerSetTxs_Handler,
+		},
+		{
+			MethodName: "CompletedBatchTxs",
+			Handler:    _Query_CompletedBatchTxs_Handler,
+		},
+		{
+			MethodName: "CompletedContractCallTxs",
+			Handler:    _Query_CompletedContractCallTxs_Handler,
+		},
+		{
+			MethodName: "BatchTxConfirmationsByValidator",
+			Handler:    _Query_BatchTxConfirmationsByValidator_Handler,
+		},
+		{
+			MethodName: "ContractCallTxConfirmationsByValidator",
+			Handler:    _Query_ContractCallTxConfirmationsByValidator_Handler,
+		},
+		{
+			MethodName: "SignerSetTxConfirmationsByValidator",
+			Handler:    _Query_SignerSetTxConfirmationsByValidator_Handler,
+		},
+		{
+			MethodName: "EthereumEventVoteRecords",
+			Handler:    _Query_EthereumEventVoteRecords_Handler,
+		},
+		{
+			MethodName: "EthereumEventVotes",
+			Handler:    _Query_EthereumEventVotes_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -5334,6 +6649,538 @@ func (m *LastObservedEthereumHeightResponse) MarshalToSizedBuffer(dAtA []byte) (
 	return len(dAtA) - i, nil
 }
 
+func (m *CompletedBatchTxsRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *CompletedBatchTxsRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *CompletedBatchTxsRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	return len(dAtA) - i, nil
+}
+
+func (m *CompletedBatchTxsResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *CompletedBatchTxsResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *CompletedBatchTxsResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.CompletedBatchTxs) > 0 {
+		for iNdEx := len(m.CompletedBatchTxs) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.CompletedBatchTxs[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintQuery(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0xa
+		}
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *CompletedContractCallTxsRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *CompletedContractCallTxsRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *CompletedContractCallTxsRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	return len(dAtA) - i, nil
+}
+
+func (m *CompletedContractCallTxsResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *CompletedContractCallTxsResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *CompletedContractCallTxsResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.CompletedContractCallTxs) > 0 {
+		for iNdEx := len(m.CompletedContractCallTxs) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.CompletedContractCallTxs[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintQuery(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0xa
+		}
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *CompletedSignerSetTxsRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *CompletedSignerSetTxsRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *CompletedSignerSetTxsRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	return len(dAtA) - i, nil
+}
+
+func (m *CompletedSignerSetTxsResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *CompletedSignerSetTxsResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *CompletedSignerSetTxsResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.CompletedSignerSetTxs) > 0 {
+		for iNdEx := len(m.CompletedSignerSetTxs) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.CompletedSignerSetTxs[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintQuery(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0xa
+		}
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *BatchTxConfirmationsByValidatorRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *BatchTxConfirmationsByValidatorRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *BatchTxConfirmationsByValidatorRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.ValidatorAddress) > 0 {
+		i -= len(m.ValidatorAddress)
+		copy(dAtA[i:], m.ValidatorAddress)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.ValidatorAddress)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *BatchTxConfirmationsByValidatorResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *BatchTxConfirmationsByValidatorResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *BatchTxConfirmationsByValidatorResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.BatchTxConfirmations) > 0 {
+		for iNdEx := len(m.BatchTxConfirmations) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.BatchTxConfirmations[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintQuery(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0xa
+		}
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *ContractCallTxConfirmationsByValidatorRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *ContractCallTxConfirmationsByValidatorRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *ContractCallTxConfirmationsByValidatorRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.ValidatorAddress) > 0 {
+		i -= len(m.ValidatorAddress)
+		copy(dAtA[i:], m.ValidatorAddress)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.ValidatorAddress)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *ContractCallTxConfirmationsByValidatorResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *ContractCallTxConfirmationsByValidatorResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *ContractCallTxConfirmationsByValidatorResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.ContractCallTxConfirmations) > 0 {
+		for iNdEx := len(m.ContractCallTxConfirmations) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.ContractCallTxConfirmations[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintQuery(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0x12
+		}
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *SignerSetTxConfirmationsByValidatorRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *SignerSetTxConfirmationsByValidatorRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *SignerSetTxConfirmationsByValidatorRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.ValidatorAddress) > 0 {
+		i -= len(m.ValidatorAddress)
+		copy(dAtA[i:], m.ValidatorAddress)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.ValidatorAddress)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *SignerSetTxConfirmationsByValidatorResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *SignerSetTxConfirmationsByValidatorResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *SignerSetTxConfirmationsByValidatorResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.SignerSetTxConfirmations) > 0 {
+		for iNdEx := len(m.SignerSetTxConfirmations) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.SignerSetTxConfirmations[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintQuery(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0x1a
+		}
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *EthereumEventVoteRecordsRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *EthereumEventVoteRecordsRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *EthereumEventVoteRecordsRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		{
+			size, err := m.Pagination.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *EthereumEventVoteRecordsResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *EthereumEventVoteRecordsResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *EthereumEventVoteRecordsResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		{
+			size, err := m.Pagination.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Records) > 0 {
+		for iNdEx := len(m.Records) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.Records[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintQuery(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0xa
+		}
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *EthereumEventVotesRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *EthereumEventVotesRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *EthereumEventVotesRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.ValidatorAddress) > 0 {
+		i -= len(m.ValidatorAddress)
+		copy(dAtA[i:], m.ValidatorAddress)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.ValidatorAddress)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *EthereumEventVotesResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *EthereumEventVotesResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *EthereumEventVotesResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Events) > 0 {
+		for iNdEx := len(m.Events) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.Events[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintQuery(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0xa
+		}
+	}
+	return len(dAtA) - i, nil
+}
+
 func encodeVarintQuery(dAtA []byte, offset int, v uint64) int {
 	offset -= sovQuery(v)
 	base := offset
@@ -6066,6 +7913,222 @@ func (m *LastObservedEthereumHeightResponse) Size() (n int) {
 	if m.LastObservedEthereumHeight != nil {
 		l = m.LastObservedEthereumHeight.Size()
 		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *CompletedBatchTxsRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	return n
+}
+
+func (m *CompletedBatchTxsResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if len(m.CompletedBatchTxs) > 0 {
+		for _, e := range m.CompletedBatchTxs {
+			l = e.Size()
+			n += 1 + l + sovQuery(uint64(l))
+		}
+	}
+	return n
+}
+
+func (m *CompletedContractCallTxsRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	return n
+}
+
+func (m *CompletedContractCallTxsResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if len(m.CompletedContractCallTxs) > 0 {
+		for _, e := range m.CompletedContractCallTxs {
+			l = e.Size()
+			n += 1 + l + sovQuery(uint64(l))
+		}
+	}
+	return n
+}
+
+func (m *CompletedSignerSetTxsRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	return n
+}
+
+func (m *CompletedSignerSetTxsResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if len(m.CompletedSignerSetTxs) > 0 {
+		for _, e := range m.CompletedSignerSetTxs {
+			l = e.Size()
+			n += 1 + l + sovQuery(uint64(l))
+		}
+	}
+	return n
+}
+
+func (m *BatchTxConfirmationsByValidatorRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.ValidatorAddress)
+	if l > 0 {
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *BatchTxConfirmationsByValidatorResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if len(m.BatchTxConfirmations) > 0 {
+		for _, e := range m.BatchTxConfirmations {
+			l = e.Size()
+			n += 1 + l + sovQuery(uint64(l))
+		}
+	}
+	return n
+}
+
+func (m *ContractCallTxConfirmationsByValidatorRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.ValidatorAddress)
+	if l > 0 {
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *ContractCallTxConfirmationsByValidatorResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if len(m.ContractCallTxConfirmations) > 0 {
+		for _, e := range m.ContractCallTxConfirmations {
+			l = e.Size()
+			n += 1 + l + sovQuery(uint64(l))
+		}
+	}
+	return n
+}
+
+func (m *SignerSetTxConfirmationsByValidatorRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.ValidatorAddress)
+	if l > 0 {
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *SignerSetTxConfirmationsByValidatorResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if len(m.SignerSetTxConfirmations) > 0 {
+		for _, e := range m.SignerSetTxConfirmations {
+			l = e.Size()
+			n += 1 + l + sovQuery(uint64(l))
+		}
+	}
+	return n
+}
+
+func (m *EthereumEventVoteRecordsRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		l = m.Pagination.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *EthereumEventVoteRecordsResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if len(m.Records) > 0 {
+		for _, e := range m.Records {
+			l = e.Size()
+			n += 1 + l + sovQuery(uint64(l))
+		}
+	}
+	if m.Pagination != nil {
+		l = m.Pagination.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *EthereumEventVotesRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.ValidatorAddress)
+	if l > 0 {
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *EthereumEventVotesResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if len(m.Events) > 0 {
+		for _, e := range m.Events {
+			l = e.Size()
+			n += 1 + l + sovQuery(uint64(l))
+		}
 	}
 	return n
 }
@@ -10569,6 +12632,1278 @@ func (m *LastObservedEthereumHeightResponse) Unmarshal(dAtA []byte) error {
 				m.LastObservedEthereumHeight = &LatestEthereumBlockHeight{}
 			}
 			if err := m.LastObservedEthereumHeight.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *CompletedBatchTxsRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: CompletedBatchTxsRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: CompletedBatchTxsRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *CompletedBatchTxsResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: CompletedBatchTxsResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: CompletedBatchTxsResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field CompletedBatchTxs", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.CompletedBatchTxs = append(m.CompletedBatchTxs, &BatchTx{})
+			if err := m.CompletedBatchTxs[len(m.CompletedBatchTxs)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *CompletedContractCallTxsRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: CompletedContractCallTxsRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: CompletedContractCallTxsRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *CompletedContractCallTxsResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: CompletedContractCallTxsResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: CompletedContractCallTxsResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field CompletedContractCallTxs", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.CompletedContractCallTxs = append(m.CompletedContractCallTxs, &ContractCallTx{})
+			if err := m.CompletedContractCallTxs[len(m.CompletedContractCallTxs)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *CompletedSignerSetTxsRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: CompletedSignerSetTxsRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: CompletedSignerSetTxsRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *CompletedSignerSetTxsResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: CompletedSignerSetTxsResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: CompletedSignerSetTxsResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field CompletedSignerSetTxs", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.CompletedSignerSetTxs = append(m.CompletedSignerSetTxs, &SignerSetTx{})
+			if err := m.CompletedSignerSetTxs[len(m.CompletedSignerSetTxs)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *BatchTxConfirmationsByValidatorRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: BatchTxConfirmationsByValidatorRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: BatchTxConfirmationsByValidatorRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ValidatorAddress", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ValidatorAddress = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *BatchTxConfirmationsByValidatorResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: BatchTxConfirmationsByValidatorResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: BatchTxConfirmationsByValidatorResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field BatchTxConfirmations", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.BatchTxConfirmations = append(m.BatchTxConfirmations, &BatchTxConfirmation{})
+			if err := m.BatchTxConfirmations[len(m.BatchTxConfirmations)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *ContractCallTxConfirmationsByValidatorRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: ContractCallTxConfirmationsByValidatorRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: ContractCallTxConfirmationsByValidatorRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ValidatorAddress", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ValidatorAddress = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *ContractCallTxConfirmationsByValidatorResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: ContractCallTxConfirmationsByValidatorResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: ContractCallTxConfirmationsByValidatorResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ContractCallTxConfirmations", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ContractCallTxConfirmations = append(m.ContractCallTxConfirmations, &ContractCallTxConfirmation{})
+			if err := m.ContractCallTxConfirmations[len(m.ContractCallTxConfirmations)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *SignerSetTxConfirmationsByValidatorRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: SignerSetTxConfirmationsByValidatorRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: SignerSetTxConfirmationsByValidatorRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ValidatorAddress", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ValidatorAddress = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *SignerSetTxConfirmationsByValidatorResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: SignerSetTxConfirmationsByValidatorResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: SignerSetTxConfirmationsByValidatorResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SignerSetTxConfirmations", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SignerSetTxConfirmations = append(m.SignerSetTxConfirmations, &SignerSetTxConfirmation{})
+			if err := m.SignerSetTxConfirmations[len(m.SignerSetTxConfirmations)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *EthereumEventVoteRecordsRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: EthereumEventVoteRecordsRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: EthereumEventVoteRecordsRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Pagination", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Pagination == nil {
+				m.Pagination = &query.PageRequest{}
+			}
+			if err := m.Pagination.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *EthereumEventVoteRecordsResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: EthereumEventVoteRecordsResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: EthereumEventVoteRecordsResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Records", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Records = append(m.Records, &EthereumEventVoteRecord{})
+			if err := m.Records[len(m.Records)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Pagination", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Pagination == nil {
+				m.Pagination = &query.PageResponse{}
+			}
+			if err := m.Pagination.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *EthereumEventVotesRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: EthereumEventVotesRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: EthereumEventVotesRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ValidatorAddress", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ValidatorAddress = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *EthereumEventVotesResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: EthereumEventVotesResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: EthereumEventVotesResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Events", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Events = append(m.Events, &types1.Any{})
+			if err := m.Events[len(m.Events)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex

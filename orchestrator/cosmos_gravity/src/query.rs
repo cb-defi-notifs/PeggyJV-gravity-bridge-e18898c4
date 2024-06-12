@@ -1,3 +1,4 @@
+use clarity::Signature;
 use deep_space::address::Address;
 use ethers::types::Address as EthAddress;
 use gravity_proto::gravity::query_client::QueryClient as GravityQueryClient;
@@ -32,7 +33,8 @@ pub async fn get_oldest_unsigned_valsets(
             address: address.to_string(),
         })
         .await?;
-    let valsets = response.into_inner().signer_sets;
+    let mut valsets = response.into_inner().signer_sets;
+    valsets.sort_by(|a, b| a.nonce.cmp(&b.nonce));
     // convert from proto valset type to rust valset type
     let valsets = valsets.iter().map(|v| v.clone().into()).collect();
     Ok(valsets)
@@ -63,6 +65,13 @@ pub async fn get_all_valset_confirms(
     let confirms = request.into_inner().signatures;
     let mut parsed_confirms = Vec::new();
     for item in confirms {
+        if let Err(e) = Signature::from_bytes(&item.signature)?.error_check() {
+            warn!("ignoring valset confirmation with invalid signature from {}", item.ethereum_signer);
+            debug!("reason given for invalid signature: {e:?}");
+
+            continue;
+        }
+
         parsed_confirms.push(ValsetConfirmResponse::from_proto(item)?)
     }
     Ok(parsed_confirms)
@@ -77,7 +86,9 @@ pub async fn get_oldest_unsigned_transaction_batch(
             address: address.to_string(),
         })
         .await?;
-    let batches = extract_valid_batches(request.into_inner().batches);
+    let mut batches = extract_valid_batches(request.into_inner().batches);
+    batches.sort_by(|a, b| a.nonce.cmp(&b.nonce));
+
     let batch = batches.get(0);
     match batch {
         Some(batch) => Ok(Some(batch.clone())),
@@ -93,7 +104,10 @@ pub async fn get_latest_transaction_batches(
     let request = client
         .batch_txs(BatchTxsRequest { pagination: None })
         .await?;
-    Ok(extract_valid_batches(request.into_inner().batches))
+    let mut batches = request.into_inner().batches;
+    batches.sort_by(|a, b| a.batch_nonce.cmp(&b.batch_nonce));
+
+    Ok(extract_valid_batches(batches))
 }
 
 // If we can't serialize a batch from a proto, but it was committed to the chain,
@@ -124,6 +138,13 @@ pub async fn get_transaction_batch_signatures(
     let batch_confirms = request.into_inner().signatures;
     let mut out = Vec::new();
     for confirm in batch_confirms {
+        if let Err(e) = Signature::from_bytes(&confirm.signature)?.error_check() {
+            warn!("ignoring batch confirmation with invalid signature from {}", confirm.ethereum_signer);
+            debug!("reason given for invalid signature: {e:?}");
+
+            continue;
+        }
+
         out.push(BatchConfirmResponse::from_proto(confirm)?)
     }
     Ok(out)
@@ -179,6 +200,13 @@ pub async fn get_logic_call_signatures(
     let call_confirms = request.into_inner().signatures;
     let mut out = Vec::new();
     for confirm in call_confirms {
+        if let Err(e) = Signature::from_bytes(&confirm.signature)?.error_check() {
+            warn!("ignoring logic call confirmation with invalid signature from {}", confirm.ethereum_signer);
+            debug!("reason given for invalid signature: {e:?}");
+
+            continue;
+        }
+
         out.push(LogicCallConfirmResponse::from_proto(confirm)?)
     }
     Ok(out)
@@ -193,7 +221,9 @@ pub async fn get_oldest_unsigned_logic_call(
             address: address.to_string(),
         })
         .await?;
-    let calls = request.into_inner().calls;
+    let mut calls = request.into_inner().calls;
+    // sort by nonce ascending
+    calls.sort_by(|a, b| a.invalidation_nonce.cmp(&b.invalidation_nonce));
     let mut out = Vec::new();
     for call in calls {
         out.push(LogicCall::from_proto(call)?)

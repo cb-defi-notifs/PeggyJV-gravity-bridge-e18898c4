@@ -1,3 +1,5 @@
+//go:build exclude
+
 package v2
 
 import (
@@ -6,8 +8,8 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/peggyjv/gravity-bridge/module/v3/x/gravity/keeper"
-	"github.com/peggyjv/gravity-bridge/module/v3/x/gravity/types"
+	"github.com/peggyjv/gravity-bridge/module/v4/x/gravity/keeper"
+	"github.com/peggyjv/gravity-bridge/module/v4/x/gravity/types"
 	"github.com/stretchr/testify/require"
 )
 
